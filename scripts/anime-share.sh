@@ -4,7 +4,7 @@
 # anime-share.sh
 # ============================================
 
-MARKDOWN_FILE="${1:-90s-anime-collection-checklist.md}"
+MARKDOWN_FILE="${1:-docs/90s-anime-collection-checklist.md}"
 OUTPUT_DIR="./shares"
 DATE=$(date +%Y%m%d)
 
@@ -17,16 +17,28 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m'
 
+# 非TTY环境禁用颜色
+if [[ ! -t 1 ]]; then
+    RED='' 
+    GREEN=''
+    YELLOW=''
+    BLUE=''
+    PURPLE=''
+    CYAN=''
+    NC=''
+fi
+
 mkdir -p "$OUTPUT_DIR"
 
 # 获取统计信息
 get_stats() {
-    TOTAL=$(grep -E '^\| \[[ x]\]' "$MARKDOWN_FILE" | wc -l)
-    WATCHED=$(grep -E '^\| \[x\]' "$MARKDOWN_FILE" | wc -l)
+    TOTAL=$(grep -E '^\|' "$MARKDOWN_FILE" | grep -E '^\|[^|]*\[[ x]\]' | grep -v '示例\|格式' | wc -l)
+    WATCHED=$(grep -E '^\|' "$MARKDOWN_FILE" | grep -E '^\|[^|]*\[x\]' | grep -v '示例\|格式' | wc -l)
+    [[ $TOTAL -eq 0 ]] && TOTAL=1
     PERCENTAGE=$((WATCHED * 100 / TOTAL))
-    JP=$(grep -A 100 '## 一、日本动画篇' "$MARKDOWN_FILE" | grep -E '^\| \[x\]' | wc -l)
-    CN=$(grep -A 100 '## 二、国产动画篇' "$MARKDOWN_FILE" | grep -E '^\| \[x\]' | wc -l)
-    EN=$(grep -A 100 '## 三、欧美动画篇' "$MARKDOWN_FILE" | grep -E '^\| \[x\]' | wc -l)
+    JP=$(grep -A 200 '## 一、日本动画篇' "$MARKDOWN_FILE" | grep -E '^\|' | grep -E '^\|[^|]*\[x\]' | grep -v '示例\|格式' | wc -l)
+    CN=$(grep -A 100 '## 二、国产动画篇' "$MARKDOWN_FILE" | grep -E '^\|' | grep -E '^\|[^|]*\[x\]' | grep -v '示例\|格式' | wc -l)
+    EN=$(grep -A 100 '## 三、欧美动画篇' "$MARKDOWN_FILE" | grep -E '^\|' | grep -E '^\|[^|]*\[x\]' | grep -v '示例\|格式' | wc -l)
 }
 
 # 获取等级称号
@@ -309,8 +321,14 @@ gen_card_markdown() {
 ## 📈 进度可视化
 
 \`\`\`
-$(python3 <></p>>$PERCENTAGE/10}; i++)); do echo -n "█"; done
-$(for i in $(seq 1 $((10-PERCENTAGE/10))); do echo -n "░"; done)
+EOF
+
+    # 进度条
+    local filled=$((PERCENTAGE / 2))
+    local empty=$((50 - filled))
+    printf "$(printf '%0.s█' $(seq 1 $filled))$(printf '%0.s░' $(seq 1 $empty))\n" >> "$output"
+    
+    cat >> "$output" << EOF
 \`\`\`
 
 **${PERCENTAGE}%** 已完成
