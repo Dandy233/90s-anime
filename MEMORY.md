@@ -37,22 +37,25 @@
 - [x] weekly-system-check：每周一10:00 系统健康检查 ✅ 已恢复
 - [x] auto-git-sync：每小时自动Git同步 ✅ 已恢复
 - [x] delayed-surprise：2026-03-02 9:00 延迟彩蛋（OpenClaw/Kimi更新调研）✅ 已恢复
+- [x] weekly-memory-review：每周日22:00 记忆回顾 ✅ 新增
 - [ ] daily-task-review：每天18:00 任务回顾（待配置）
+- [ ] install-summarize-retry：2026-03-02 01:30 自动重试安装 ⏳
 
 ### 系统状态
 - Gateway：运行正常
 - 磁盘使用：约19% (7.0G/40G)
 - 会话文件：已归档，当前<1MB
-- Git提交：30次（自2月27日）
-- 文档：13个markdown文件（已清理重复）
+- Git提交：35次（自2月27日）
+- 文档：15个markdown文件
+- 日志文件：已补全（02-27, 02-28, 03-01）
 
 ### 待办
-- [ ] 观察 daily-task-review 飞书发送稳定性
-- [ ] 明天 delayed-surprise 任务执行（3月2日9:00）
-- [ ] 评估是否安装 summarize 技能
+- [ ] 观察 delayed-surprise 任务执行（3月2日9:00）
+- [ ] 观察 summarize 技能自动安装结果（3月2日01:30）
+- [ ] 观察 weekly-memory-review 首次执行（3月2日22:00）
 - [ ] GitHub 推送网络问题待观察
 - [ ] 补充用户更多个人信息
 - [ ] 根据使用情况完善心跳检查清单
 
 ---
-*最后更新：2026-03-01*
+*最后更新：2026-03-02*
