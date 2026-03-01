@@ -57,3 +57,111 @@ Add whatever helps you do your job. This is your cheat sheet.
 - diary/: 私人日记
 - scripts/: 自动化脚本
 - archive/: 归档文件（大会话文件等）
+- docs/: 文档和报告
+
+---
+
+## 技能使用指南
+
+### 🌤️ Weather (天气查询)
+- **状态**: ✅ 已就绪
+- **来源**: openclaw-bundled
+- **依赖**: curl
+- **API**: wttr.in / Open-Meteo
+
+**使用示例**:
+```bash
+# 快速查询（北京）
+curl -s "wttr.in/Beijing?format=3"
+# 输出: Beijing: ⛅️ +8°C
+
+# 紧凑格式（位置+天气+温度+湿度+风力）
+curl -s "wttr.in/Beijing?format=%l:+%c+%t+%h+%w"
+# 输出: Beijing: ⛅️ +8°C 71% ↙5km/h
+
+# 完整预报（无广告）
+curl -s "wttr.in/Beijing?T"
+
+# 当前天气（今天）
+curl -s "wttr.in/Beijing?0"
+```
+
+**格式代码**:
+| 代码 | 含义 |
+|------|------|
+| %c | 天气状况图标 |
+| %t | 温度 |
+| %h | 湿度 |
+| %w | 风力 |
+| %l | 位置名称 |
+| %m | 月相 |
+
+**高级用法**:
+```bash
+# 机场代码查询
+curl -s "wttr.in/JFK?format=3"
+
+# 公制单位
+curl -s "wttr.in/Beijing?m"
+
+# 英制单位
+curl -s "wttr.in/New+York?u"
+
+# 生成PNG图片
+curl -s "wttr.in/Beijing.png" -o /tmp/weather.png
+```
+
+### 🧾 Summarize (内容摘要)
+- **状态**: ⏳ 待安装CLI
+- **来源**: clawhub (summarize)
+- **功能**: 从URL、播客、本地文件提取文本和转录
+- **用途**: YouTube/视频转录的备选方案
+
+**安装**:
+```bash
+# macOS
+brew install summarize
+
+# 或 npm
+npm install -g summarize-cli
+```
+
+**使用方法**:
+```bash
+# 网页摘要
+summarize https://example.com/article
+
+# 本地文件
+summarize document.pdf
+
+# 视频转录（YouTube等）
+summarize https://youtube.com/watch?v=xxx
+```
+
+**使用场景**:
+- 快速了解长文章内容
+- 视频内容转录
+- 播客文字稿提取
+- 文档自动摘要
+
+### 📦 ClawHub 技能管理
+
+**搜索技能**:
+```bash
+clawhub search <关键词>
+```
+
+**安装技能**:
+```bash
+clawhub install <技能名> --no-input
+```
+
+**列出已安装**:
+```bash
+clawhub list
+```
+
+**更新技能**:
+```bash
+clawhub update <技能名>
+```
