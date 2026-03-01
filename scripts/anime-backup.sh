@@ -17,6 +17,15 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
+# 是否使用颜色（非TTY环境禁用）
+if [[ ! -t 1 ]]; then
+    RED=''
+    GREEN=''
+    YELLOW=''
+    BLUE=''
+    NC=''
+fi
+
 # 创建备份目录
 mkdir -p "$BACKUP_DIR"
 
