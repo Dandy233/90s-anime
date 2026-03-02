@@ -234,11 +234,6 @@
             color: white;
             border-color: #4CAF50;
         }
-        .btn.favorite {
-            background: #ff6b6b;
-            color: white;
-            border-color: #ff6b6b;
-        }
         
         .links {
             display: flex;
@@ -501,21 +496,16 @@
         }
         
         // 切换状态
-        function toggle(btn, type, id) {
+        function toggle(btn, id) {
             const saved = getSaved();
             if (!saved[id]) saved[id] = {};
-            saved[id][type] = !saved[id][type];
+            saved[id].watched = !saved[id].watched;
             save(saved);
             
             const card = btn.closest('.anime-card');
-            if (type === 'watched') {
-                card.classList.toggle('watched', saved[id].watched);
-                btn.classList.toggle('watched', saved[id].watched);
-                btn.innerHTML = saved[id].watched ? '☑ 已看' : '☐ 标记为已看';
-            } else {
-                btn.classList.toggle('favorite', saved[id].favorite);
-                btn.innerHTML = saved[id].favorite ? '❤ 收藏' : '♡ 收藏';
-            }
+            card.classList.toggle('watched', saved[id].watched);
+            btn.classList.toggle('watched', saved[id].watched);
+            btn.innerHTML = saved[id].watched ? '☑ 已看' : '☐ 标记为已看';
         }
         
         // 切换快速导航展开/收起
@@ -621,7 +611,7 @@
                         <div class="anime-meta">${item.year} · ${item.subCategory || item.category}</div>
                         <div class="anime-desc">${item.desc}</div>
                         <div class="anime-actions">
-                            <button class="btn ${s.watched ? 'watched' : ''}" onclick="toggle(this, 'watched', '${item.id}')" style="width:100%">${s.watched ? '☑ 已看' : '☐ 标记为已看'}</button>
+                            <button class="btn ${s.watched ? 'watched' : ''}" onclick="toggle(this, '${item.id}')" style="width:100%">${s.watched ? '☑ 已看' : '☐ 标记为已看'}</button>
                         </div>
                         <div class="links">
                             <a href="${item.doubanLink || 'https://movie.douban.com'}" class="link" target="_blank">豆瓣</a>
