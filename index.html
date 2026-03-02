@@ -461,13 +461,20 @@
         let currentFilter = 'all';
         let currentSubCat = null;
         
-        // 成就等级
+        // 成就等级（12级系统）
         function getAchievement(count) {
-            if (count >= 100) return { name: '👑 动画之神', color: '#ffd700' };
-            if (count >= 50) return { name: '🏆 大师级', color: '#c0c0c0' };
-            if (count >= 30) return { name: '🌳 资深观众', color: '#cd7f32' };
-            if (count >= 10) return { name: '🌿 进阶观众', color: '#90ee90' };
-            return { name: '🌱 动画萌新', color: '#98fb98' };
+            if (count >= 300) return { name: '🏆 终极主宰', color: '#ff0000' };
+            if (count >= 250) return { name: '💫 传奇级', color: '#ff1493' };
+            if (count >= 200) return { name: '🌟 神话级', color: '#ff69b4' };
+            if (count >= 150) return { name: '⭐ 传说级', color: '#ffd700' };
+            if (count >= 110) return { name: '👑 宗师级', color: '#ff8c00' };
+            if (count >= 80) return { name: '🎖️ 大师级', color: '#da70d6' };
+            if (count >= 50) return { name: '🏅 鉴赏家', color: '#6495ed' };
+            if (count >= 30) return { name: '🎓 资深观众', color: '#20b2aa' };
+            if (count >= 20) return { name: '📚 进阶观众', color: '#87ceeb' };
+            if (count >= 10) return { name: '🍃 入门观众', color: '#90ee90' };
+            if (count >= 5) return { name: '🌿 动画萌新', color: '#98fb98' };
+            return { name: '🌱 路人观众', color: '#d3d3d3' };
         }
         
         // 获取保存的数据
