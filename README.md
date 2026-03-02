@@ -2,7 +2,7 @@
 
 > 献给所有在动画陪伴下成长的90后一代
 
-🌐 **在线访问**: [https://neozhu.github.io/90s-anime/](https://neozhu.github.io/90s-anime/)
+🌐 **在线访问**: [https://dandy233.github.io/90s-anime/](https://dandy233.github.io/90s-anime/)
 
 ---
 
