@@ -2,7 +2,7 @@
 
 ## 🌐 在线访问
 
-https://dandy233.github.io/90s-anime/
+<a href="https://dandy233.github.io/90s-anime/" target="_blank">https://dandy233.github.io/90s-anime/</a>
 
 > 献给所有在动画陪伴下成长的90后一代
 
