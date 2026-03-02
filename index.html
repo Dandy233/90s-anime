@@ -218,6 +218,29 @@
             gap: 8px;
             margin-bottom: 10px;
         }
+        .anime-actions-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .anime-actions-row .btn {
+            flex: 1;
+        }
+        .anime-actions-row .link {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #667eea;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .anime-actions-row .link:hover { background: #667eea; color: white; }
         .btn {
             flex: 1;
             padding: 10px;
@@ -234,23 +257,6 @@
             color: white;
             border-color: #4CAF50;
         }
-        
-        .links {
-            display: flex;
-            gap: 8px;
-        }
-        .link {
-            flex: 1;
-            padding: 8px;
-            text-align: center;
-            background: #f5f5f5;
-            border-radius: 6px;
-            font-size: 12px;
-            color: #667eea;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        .link:hover { background: #667eea; color: white; }
         
         /* 空状态 */
         .empty-state {
@@ -607,10 +613,8 @@
                         <div class="anime-title">${item.cleanName}</div>
                         <div class="anime-meta">${item.year} · ${item.subCategory || item.category}</div>
                         <div class="anime-desc">${item.desc}</div>
-                        <div class="anime-actions">
-                            <button class="btn ${s.watched ? 'watched' : ''}" onclick="toggle(this, '${item.id}')" style="width:100%">${s.watched ? '☑ 已看' : '☐ 标记为已看'}</button>
-                        </div>
-                        <div class="links">
+                        <div class="anime-actions-row">
+                            <button class="btn ${s.watched ? 'watched' : ''}" onclick="toggle(this, '${item.id}')">${s.watched ? '☑ 已看' : '☐ 标记为已看'}</button>
                             <a href="https://baike.baidu.com/item/${encodeURIComponent(item.cleanName)}" class="link" target="_blank">百科</a>
                         </div>
                     </div>
