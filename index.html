@@ -552,16 +552,13 @@
         function cleanTitle(rawText) {
             // 移除 ** 粗体标记
             let clean = rawText.replace(/\*\*/g, '');
-            // 移除 [[豆瓣](...)] 链接标记，只保留作品名
             clean = clean.replace(/\s*\[\[([^\]]+)\]\([^\)]+\)\]/g, '');
             // 移除其他Markdown链接 [text](url)
             clean = clean.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1');
             return clean.trim();
         }
         
-        // 提取豆瓣链接
         function extractDoubanLink(rawText) {
-            const match = rawText.match(/\[\[豆瓣\]\]\((https?:\/\/[^)]+)\)/);
             return match ? match[1] : null;
         }
         
@@ -614,7 +611,6 @@
                             <button class="btn ${s.watched ? 'watched' : ''}" onclick="toggle(this, '${item.id}')" style="width:100%">${s.watched ? '☑ 已看' : '☐ 标记为已看'}</button>
                         </div>
                         <div class="links">
-                            <a href="${item.doubanLink || 'https://movie.douban.com'}" class="link" target="_blank">豆瓣</a>
                             <a href="https://baike.baidu.com/item/${encodeURIComponent(item.cleanName)}" class="link" target="_blank">百科</a>
                         </div>
                     </div>
@@ -702,12 +698,10 @@
                         if (cells.length >= 5) {
                             const rawName = cells[2];  // 作品名称在第3列
                             const cleanName = cleanTitle(rawName);
-                            const doubanLink = extractDoubanLink(rawName);
                             
                             allData.push({
                                 rawName: rawName,
                                 cleanName: cleanName,
-                                doubanLink: doubanLink,
                                 year: cells[3],  // 年份在第4列
                                 desc: cells[4].substring(0, 120),  // 简介在第5列
                                 category: cat,
