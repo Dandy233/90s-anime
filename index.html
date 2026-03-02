@@ -709,8 +709,8 @@
                     // 解析数据行
                     if (line.includes('|') && line.includes('**') && !line.includes(':--')) {
                         const cells = line.split('|').map(c => c.trim()).filter(c => c);
-                        if (cells.length >= 4) {
-                            const rawName = cells[1];
+                        if (cells.length >= 5) {
+                            const rawName = cells[2];  // 作品名称在第3列
                             const cleanName = cleanTitle(rawName);
                             const doubanLink = extractDoubanLink(rawName);
                             
@@ -718,8 +718,8 @@
                                 rawName: rawName,
                                 cleanName: cleanName,
                                 doubanLink: doubanLink,
-                                year: cells[2],
-                                desc: cells[3].substring(0, 120),
+                                year: cells[3],  // 年份在第4列
+                                desc: cells[4].substring(0, 120),  // 简介在第5列
                                 category: cat,
                                 subCategory: subCat,
                                 id: 'a' + allData.length
