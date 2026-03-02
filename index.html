@@ -553,9 +553,9 @@
             // 移除 ** 粗体标记
             let clean = rawText.replace(/\*\*/g, '');
             // 移除 [[豆瓣](...)] 链接标记，只保留作品名
-            clean = clean.replace(/\s*\[\[.+?\]\]/g, '');
+            clean = clean.replace(/\s*\[\[([^\]]+)\]\([^\)]+\)\]/g, '');
             // 移除其他Markdown链接 [text](url)
-            clean = clean.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+            clean = clean.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1');
             return clean.trim();
         }
         
