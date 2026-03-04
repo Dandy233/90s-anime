@@ -1017,7 +1017,135 @@
             min-height: 100vh;
             padding: 10px;
             line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+
+        /* 全局主题过渡动画 */
+        .header, .stat-card, .anime-section, .progress-section, 
+        .achievement, .anime-item, .tag, .filter-btn, .theme-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* 搜索框样式 */
+        .search-section {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 2px solid var(--border, #ddd);
+            border-radius: 25px;
+            font-size: 14px;
+            font-family: inherit;
+            background: var(--card, #fff);
+            color: var(--text, #333);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary, #667eea);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            opacity: 0.5;
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+
+        .search-clear:hover {
+            opacity: 1;
+        }
+
+        /* 排序控件 */
+        .sort-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .sort-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted, #666);
+        }
+
+        .sort-btn {
+            padding: 6px 14px;
+            border: 1px solid var(--border, #ddd);
+            background: var(--card, #fff);
+            color: var(--text, #333);
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sort-btn:hover, .sort-btn.active {
+            background: var(--primary, #667eea);
+            color: white;
+            border-color: var(--primary, #667eea);
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted, #999);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+        }
+
+        /* 加载动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .anime-item {
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        .anime-item:nth-child(1) { animation-delay: 0.05s; }
+        .anime-item:nth-child(2) { animation-delay: 0.1s; }
+        .anime-item:nth-child(3) { animation-delay: 0.15s; }
+        .anime-item:nth-child(4) { animation-delay: 0.2s; }
+        .anime-item:nth-child(5) { animation-delay: 0.25s; }
 
         .container {
             max-width: 800px;
@@ -1292,7 +1420,136 @@
             opacity: 0.7;
         }
 
-        /* 滚动条样式 */
+        /* 随机推荐按钮 */
+        .lucky-draw {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 24px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .lucky-draw:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .lucky-draw:active {
+            transform: translateY(0);
+        }
+
+        .lucky-icon {
+            font-size: 24px;
+            animation: shake 2s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            10% { transform: rotate(-15deg); }
+            20% { transform: rotate(15deg); }
+            30% { transform: rotate(-10deg); }
+            40% { transform: rotate(10deg); }
+            50% { transform: rotate(0deg); }
+        }
+
+        .lucky-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .lucky-hint {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+            margin-left: auto;
+        }
+
+        /* 推荐弹窗 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--card, #fff);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            font-size: 14px;
+            color: var(--muted, #999);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .modal-anime-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text, #333);
+            margin-bottom: 10px;
+        }
+
+        .modal-anime-year {
+            font-size: 14px;
+            color: var(--muted, #999);
+            margin-bottom: 15px;
+        }
+
+        .modal-anime-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text, #333);
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            padding: 10px 30px;
+            background: var(--primary, #667eea);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -1309,24 +1566,281 @@
             background: var(--retro-primary);
         }
 
+        [data-theme="retro"] .search-input {
+            background: var(--retro-card);
+            border-color: var(--retro-border);
+            color: var(--retro-text);
+        }
+
+        [data-theme="retro"] .search-input:focus {
+            border-color: var(--retro-accent);
+            box-shadow: 0 0 0 3px rgba(255, 190, 11, 0.3);
+        }
+
+        [data-theme="retro"] .sort-btn {
+            background: var(--retro-card);
+            border-color: var(--retro-primary);
+            color: var(--retro-text);
+        }
+
+        [data-theme="retro"] .sort-btn:hover, [data-theme="retro"] .sort-btn.active {
+            background: var(--retro-primary);
+            color: white;
+        }
+
+        [data-theme="retro"] .lucky-draw {
+            background: linear-gradient(135deg, var(--retro-primary), var(--retro-secondary));
+            border: 2px solid var(--retro-accent);
+            box-shadow: 4px 4px 0 var(--retro-secondary);
+        }
+
+        [data-theme="retro"] .lucky-draw:hover {
+            box-shadow: 6px 6px 0 var(--retro-secondary);
+            transform: translateY(-2px);
+        }
+
+        [data-theme="retro"] .modal-content {
+            background: var(--retro-card);
+            border: 3px solid var(--retro-primary);
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+        }
+
         [data-theme="neumorphic"] ::-webkit-scrollbar-thumb {
             background: var(--neumorphic-shadow-dark);
+        }
+
+        [data-theme="neumorphic"] .search-input {
+            background: var(--neumorphic-card);
+            border: none;
+            box-shadow: 
+                inset 5px 5px 10px var(--neumorphic-shadow-dark),
+                inset -5px -5px 10px var(--neumorphic-shadow-light);
+        }
+
+        [data-theme="neumorphic"] .sort-btn {
+            background: var(--neumorphic-card);
+            border: none;
+            box-shadow: 
+                3px 3px 6px var(--neumorphic-shadow-dark),
+                -3px -3px 6px var(--neumorphic-shadow-light);
+        }
+
+        [data-theme="neumorphic"] .sort-btn:hover, [data-theme="neumorphic"] .sort-btn.active {
+            box-shadow: 
+                inset 3px 3px 6px var(--neumorphic-shadow-dark),
+                inset -3px -3px 6px var(--neumorphic-shadow-light);
+            background: var(--neumorphic-card);
+        }
+
+        [data-theme="neumorphic"] .lucky-draw {
+            background: var(--neumorphic-card);
+            box-shadow: 
+                8px 8px 16px var(--neumorphic-shadow-dark),
+                -8px -8px 16px var(--neumorphic-shadow-light);
+            border-radius: 30px;
+        }
+
+        [data-theme="neumorphic"] .lucky-draw:hover {
+            box-shadow: 
+                inset 8px 8px 16px var(--neumorphic-shadow-dark),
+                inset -8px -8px 16px var(--neumorphic-shadow-light);
+        }
+
+        [data-theme="neumorphic"] .lucky-text,
+        [data-theme="neumorphic"] .lucky-hint {
+            background: linear-gradient(135deg, var(--neumorphic-primary), #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        [data-theme="neumorphic"] .modal-content {
+            background: var(--neumorphic-card);
+            border-radius: 30px;
+            box-shadow: 
+                20px 20px 60px var(--neumorphic-shadow-dark),
+                -20px -20px 60px var(--neumorphic-shadow-light);
         }
 
         [data-theme="glass"] ::-webkit-scrollbar-thumb {
             background: rgba(255,255,255,0.3);
         }
 
+        [data-theme="glass"] .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        [data-theme="glass"] .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        [data-theme="glass"] .sort-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        [data-theme="glass"] .sort-btn:hover, [data-theme="glass"] .sort-btn.active {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        [data-theme="glass"] .lucky-draw {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        [data-theme="glass"] .modal-content {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
         [data-theme="cyber"] ::-webkit-scrollbar-thumb {
             background: var(--cyber-primary);
+        }
+
+        [data-theme="cyber"] .search-input {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: rgba(0, 245, 255, 0.3);
+            color: var(--cyber-text);
+        }
+
+        [data-theme="cyber"] .search-input:focus {
+            border-color: var(--cyber-primary);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+        }
+
+        [data-theme="cyber"] .search-input::placeholder {
+            color: var(--cyber-muted);
+        }
+
+        [data-theme="cyber"] .sort-btn {
+            background: transparent;
+            border-color: rgba(0, 245, 255, 0.3);
+            color: var(--cyber-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        [data-theme="cyber"] .sort-btn:hover, [data-theme="cyber"] .sort-btn.active {
+            background: rgba(0, 245, 255, 0.1);
+            border-color: var(--cyber-primary);
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.2);
+        }
+
+        [data-theme="cyber"] .lucky-draw {
+            background: linear-gradient(135deg, rgba(0,245,255,0.2), rgba(255,0,255,0.2));
+            border: 1px solid var(--cyber-primary);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
+        }
+
+        [data-theme="cyber"] .lucky-draw:hover {
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.5);
+        }
+
+        [data-theme="cyber"] .modal-content {
+            background: var(--cyber-card);
+            border: 1px solid var(--cyber-primary);
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.3);
+        }
+
+        [data-theme="cyber"] .modal-title {
+            color: var(--cyber-primary);
+            text-shadow: 0 0 10px var(--cyber-primary);
         }
 
         [data-theme="minimal"] ::-webkit-scrollbar-thumb {
             background: var(--minimal-border);
         }
 
+        [data-theme="minimal"] .search-input {
+            background: transparent;
+            border: 2px solid var(--minimal-border);
+            border-radius: 0;
+            color: var(--minimal-text);
+        }
+
+        [data-theme="minimal"] .search-input:focus {
+            border-color: var(--minimal-text);
+            box-shadow: none;
+        }
+
+        [data-theme="minimal"] .sort-btn {
+            background: transparent;
+            border: 1px solid var(--minimal-border);
+            border-radius: 0;
+            color: var(--minimal-text);
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+        [data-theme="minimal"] .sort-btn:hover, [data-theme="minimal"] .sort-btn.active {
+            background: var(--minimal-text);
+            color: var(--minimal-card);
+            border-color: var(--minimal-text);
+        }
+
+        [data-theme="minimal"] .lucky-draw {
+            background: var(--minimal-text);
+            border-radius: 0;
+        }
+
+        [data-theme="minimal"] .modal-content {
+            background: var(--minimal-card);
+            border: 1px solid var(--minimal-border);
+            border-radius: 0;
+        }
+
+        [data-theme="minimal"] .modal-close {
+            background: var(--minimal-text);
+            border-radius: 0;
+        }
+
         [data-theme="material"] ::-webkit-scrollbar-thumb {
             background: var(--material-muted);
+        }
+
+        [data-theme="material"] .search-input {
+            background: var(--material-surface);
+            border-color: var(--material-muted);
+            border-radius: 28px;
+        }
+
+        [data-theme="material"] .search-input:focus {
+            border-color: var(--material-primary);
+        }
+
+        [data-theme="material"] .sort-btn {
+            background: transparent;
+            border: 1px solid var(--material-muted);
+            border-radius: 20px;
+            color: var(--material-text);
+        }
+
+        [data-theme="material"] .sort-btn:hover, [data-theme="material"] .sort-btn.active {
+            background: var(--material-secondary);
+            color: var(--material-primary);
+            border-color: transparent;
+        }
+
+        [data-theme="material"] .lucky-draw {
+            background: var(--material-primary);
+            border-radius: 28px;
+        }
+
+        [data-theme="material"] .modal-content {
+            background: var(--material-surface);
+            border-radius: 28px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="material"] .modal-close {
+            background: var(--material-primary);
         }
     </style>
 </head>
@@ -1398,17 +1912,40 @@
             <div class="achievement-badge" id="achievementBadge">动画新手</div>
         </div>
 
+        <!-- 随机推荐 -->
+        <div class="lucky-draw" onclick="randomPick()">
+            <span class="lucky-icon">🎲</span>
+            <span class="lucky-text">手气不错</span>
+            <span class="lucky-hint">随机推荐一部动漫</span>
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="search-section">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="searchInput" placeholder="搜索动漫名称..." oninput="handleSearch(this.value)">
+            <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display: none;">✕</button>
+        </div>
+
+        <!-- 排序 -->
+        <div class="sort-section">
+            <span class="sort-label">📊 排序:</span>
+            <button class="sort-btn active" onclick="setSort('default', this)">默认</button>
+            <button class="sort-btn" onclick="setSort('year', this)">年份</button>
+            <button class="sort-btn" onclick="setSort('name', this)">名称</button>
+            <button class="sort-btn" onclick="setSort('rating', this)">评分</button>
+        </div>
+
         <!-- 筛选标签 -->
         <div class="filter-section">
-            <div class="filter-title">🔍 筛选类别</div>
+            <div class="filter-title">🏷️ 筛选类别</div>
             <div class="filter-buttons">
-                <button class="filter-btn active" onclick="filterCategory('all')">全部</button>
-                <button class="filter-btn" onclick="filterCategory('jp')">日本动画</button>
-                <button class="filter-btn" onclick="filterCategory('cn')">国产动画</button>
-                <button class="filter-btn" onclick="filterCategory('us')">欧美动画</button>
-                <button class="filter-btn" onclick="filterCategory('watched')">已看过</button>
-                <button class="filter-btn" onclick="filterCategory('favorite')">已收藏</button>
-                <button class="filter-btn" onclick="filterCategory('unwatched')">未看</button>
+                <button class="filter-btn active" onclick="filterCategory('all', this)">全部</button>
+                <button class="filter-btn" onclick="filterCategory('jp', this)">日本动画</button>
+                <button class="filter-btn" onclick="filterCategory('cn', this)">国产动画</button>
+                <button class="filter-btn" onclick="filterCategory('us', this)">欧美动画</button>
+                <button class="filter-btn" onclick="filterCategory('watched', this)">已看过</button>
+                <button class="filter-btn" onclick="filterCategory('favorite', this)">已收藏</button>
+                <button class="filter-btn" onclick="filterCategory('unwatched', this)">未看</button>
             </div>
         </div>
 
@@ -1424,42 +1961,2565 @@
     <script>
         // ===== 动漫数据 =====
         const animeData = {
-            japan: [
-                { title: "七龙珠Z", year: "1989-1996", rating: 5, category: "jp", desc: "孙悟空从少年到成为宇宙最强战士的成长史诗，影响了几代人的童年。" },
-                { title: "灌篮高手", year: "1993-1996", rating: 5, category: "jp", desc: "樱木花道从篮球门外汉到湘北主力的成长故事。"教练，我想打篮球"成为永恒经典。" },
-                { title: "幽游白书", year: "1992-1995", rating: 5, category: "jp", desc: "不良少年浦饭幽助成为灵界侦探的冒险故事。" },
-                { title: "火影忍者", year: "2002-2017", rating: 5, category: "jp", desc: "漩涡鸣人的奋斗历程，羁绊与成长的主题深入人心。" },
-                { title: "海贼王", year: "1999-至今", rating: 5, category: "jp", desc: "路飞寻找ONE PIECE的冒险，"我是要成为海贼王的男人"。" },
-                { title: "圣斗士星矢", year: "1986-1989", rating: 5, category: "jp", desc: "青铜五小强守护雅典娜，"天马流星拳"成为童年口头禅。" },
-                { title: "新世纪福音战士", year: "1995-1996", rating: 5, category: "jp", desc: "庵野秀明神作，探讨人类补完计划的心理学巨作。" },
-                { title: "全职猎人", year: "1999-2001", rating: 5, category: "jp", desc: "小杰寻找父亲成为猎人的冒险，蚂蚁篇被誉为少年漫的巅峰。" },
-                { title: "美少女战士", year: "1992-1997", rating: 5, category: "jp", desc: ""代表月亮消灭你！"魔法少女的开山鼻祖。" },
-                { title: "魔卡少女樱", year: "1998-2000", rating: 5, category: "jp", desc: "木之本樱收集库洛牌的魔法冒险，画风甜美治愈。" },
-                { title: "龙猫", year: "1988", rating: 5, category: "jp", desc: "宫崎骏最纯真的作品。" },
-                { title: "千与千寻", year: "2001", rating: 5, category: "jp", desc: "奥斯卡最佳动画长片。" },
-                { title: "天空之城", year: "1986", rating: 5, category: "jp", desc: "寻找漂浮在天空中的拉普达的冒险。" }
-            ],
-            china: [
-                { title: "大闹天宫", year: "1961-1964", rating: 5, category: "cn", desc: "万籁鸣执导，中国动画的巅峰之作，孙悟空的经典形象。" },
-                { title: "哪吒闹海", year: "1979", rating: 5, category: "cn", desc: "哪吒自刎救陈塘关的悲剧，上海美影厂代表作。" },
-                { title: "葫芦兄弟", year: "1986-1987", rating: 5, category: "cn", desc: "七娃救爷爷的经典故事，剪纸动画的杰作。" },
-                { title: "黑猫警长", year: "1984-1987", rating: 5, category: "cn", desc: ""眼睛瞪得像铜铃"，五集经典警匪动画。" },
-                { title: "舒克和贝塔", year: "1989-1992", rating: 5, category: "cn", desc: "开飞机的舒克与开坦克的贝塔。" },
-                { title: "西游记(动画版)", year: "1999", rating: 5, category: "cn", desc: "央视动画版西游记，"猴哥猴哥"的主题曲家喻户晓。" },
-                { title: "哪吒传奇", year: "2003", rating: 5, category: "cn", desc: ""是他，就是他，我们的英雄小哪吒"。" },
-                { title: "秦时明月", year: "2007-至今", rating: 5, category: "cn", desc: "国产3D武侠动画的巅峰。" }
-            ],
-            us: [
-                { title: "狮子王", year: "1994", rating: 5, category: "us", desc: "辛巴为父报仇成为草原之王的史诗。" },
-                { title: "玩具总动员", year: "1995", rating: 5, category: "us", desc: "首部全CG动画长片，胡迪与巴斯光年的友情。" },
-                { title: "花木兰", year: "1998", rating: 5, category: "us", desc: "迪士尼版中国故事。" },
-                { title: "猫和老鼠", year: "1940-至今", rating: 5, category: "us", desc: "永恒的经典，Tom和Jerry的追逐。" }
-            ]
-        };
+          "japan": [
+                    {
+                              "title": "七龙珠Z",
+                              "year": "1989-1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "孙悟空从少年到成为宇宙最强战士的成长史诗，影响了几代人的童年。超级赛亚人的变身至今令人热血沸腾。"
+                    },
+                    {
+                              "title": "灌篮高手",
+                              "year": "1993-1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "樱木花道从篮球门外汉到湘北主力的成长故事。\"教练，我想打篮球\"成为永恒经典。"
+                    },
+                    {
+                              "title": "幽游白书",
+                              "year": "1992-1995",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "富坚义博代表作，不良少年浦饭幽助成为灵界侦探的冒险故事，暗黑武道会篇章堪称经典。"
+                    },
+                    {
+                              "title": "火影忍者",
+                              "year": "2002-2017",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "漩涡鸣人从一尾人柱力到七代目火影的奋斗历程，羁绊与成长的主题深入人心。"
+                    },
+                    {
+                              "title": "海贼王",
+                              "year": "1999-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "路飞寻找ONE PIECE成为海贼王的冒险，\"我是要成为海贼王的男人\"激励无数人。"
+                    },
+                    {
+                              "title": "死神",
+                              "year": "2004-2012",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "黑崎一护成为死神代理，与虚战斗保护人类的故事。斩魄刀的设定极具创意。"
+                    },
+                    {
+                              "title": "圣斗士星矢",
+                              "year": "1986-1989",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "青铜五小强守护雅典娜，燃烧小宇宙战斗的故事。\"天马流星拳\"成为童年口头禅。"
+                    },
+                    {
+                              "title": "浪客剑心",
+                              "year": "1996-1998",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "维新志士绯村剑心放下屠刀后的救赎之旅，追忆篇更是动画史上的巅峰之作。"
+                    },
+                    {
+                              "title": "犬夜叉",
+                              "year": "2000-2004",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "现代少女戈薇穿越战国时代，与半妖犬夜叉寻找四魂之玉的冒险。"
+                    },
+                    {
+                              "title": "全职猎人",
+                              "year": "1999-2001 / 2011-2014",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "小杰寻找父亲成为猎人的冒险，蚂蚁篇被誉为少年漫的巅峰。"
+                    },
+                    {
+                              "title": "魔神坛斗士",
+                              "year": "1988-1989",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "五位少年穿上铠甲与妖邪界战斗的故事，仁义礼智信的东方主题。"
+                    },
+                    {
+                              "title": "魔神英雄传",
+                              "year": "1988-1989",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "战部渡驾驶龙神丸拯救创界山的冒险，\"机会来了小渡\"成为经典台词。"
+                    },
+                    {
+                              "title": "宇宙骑士",
+                              "year": "1992-1993",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "D-Boy变身宇宙骑士对抗拉达姆的悲壮故事，90年代硬核科幻代表作。"
+                    },
+                    {
+                              "title": "天空战记",
+                              "year": "1989-1990",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "修罗王一平与八部众的印度神话背景战斗故事。"
+                    },
+                    {
+                              "title": "鬼神童子",
+                              "year": "1995-1997",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "役小明与寄生兽前鬼对抗妖怪的战斗故事。"
+                    },
+                    {
+                              "title": "爆裂战士",
+                              "year": "1999-2000",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "战蓝宝与爆裂战士对抗魔人的冒险。"
+                    },
+                    {
+                              "title": "新世纪福音战士(EVA)",
+                              "year": "1995-1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "庵野秀明神作，少年驾驶EVA对抗使徒，探讨人类补完计划的心理学巨作。"
+                    },
+                    {
+                              "title": "天元突破红莲螺岩",
+                              "year": "2007",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "\"你以为我是谁！\"突破天际的钻头，热血与浪漫的完美结合。"
+                    },
+                    {
+                              "title": "机动战舰抚子号",
+                              "year": "1996-1997",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "融合了热血、搞笑、恋爱的科幻作品，\"百合进化\"百合铃成为经典角色。"
+                    },
+                    {
+                              "title": "星际牛仔",
+                              "year": "1998-1999",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "斯派克与伙伴们在宇宙中的赏金猎人生活，爵士与科幻的完美融合。"
+                    },
+                    {
+                              "title": "魔法骑士雷阿斯",
+                              "year": "1994-1995",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "CLAMP少女穿越异世界成为魔法骑士拯救公主的故事。"
+                    },
+                    {
+                              "title": "JOJO的奇妙冒险(OVA版)",
+                              "year": "1993-1994, 2000",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "第三部埃及篇，共13集，2000年补充前半部分，A.P.P.P.制作，空条承太郎与DIO的宿命对决。"
+                    },
+                    {
+                              "title": "城市猎人",
+                              "year": "1987-1991",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "冴羽獠与槙村香的都市侠义故事，北条司经典。"
+                    },
+                    {
+                              "title": "罗德斯岛战记",
+                              "year": "1990",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "帕恩与蒂德莉特的奇幻冒险，OVA时代的巅峰。"
+                    },
+                    {
+                              "title": "NG骑士柠檬汽水&40",
+                              "year": "1990",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "马场柠檬穿越游戏世界的搞笑机甲冒险。"
+                    },
+                    {
+                              "title": "至尊勇者",
+                              "year": "1990",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "少年与传说勇者们拯救世界的冒险。"
+                    },
+                    {
+                              "title": "勇者系列",
+                              "year": "1990-1995",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "勇者凯撒、勇者传说等多部勇者机甲系列。"
+                    },
+                    {
+                              "title": "碧奇魂",
+                              "year": "1994",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "日高一平与女神白尼子的奇幻战斗。"
+                    },
+                    {
+                              "title": "钢铁神兵",
+                              "year": "1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "车田正美作品，少年高宫铁兵与机械皇国的战斗。"
+                    },
+                    {
+                              "title": "樱花大战",
+                              "year": "1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "真宫寺樱与帝国华击团的蒸汽朋克冒险。"
+                    },
+                    {
+                              "title": "机动战士高达第08MS小队",
+                              "year": "1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "高达系列写实风格巅峰，西罗与艾娜的战场爱情。"
+                    },
+                    {
+                              "title": "机械女神",
+                              "year": "1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "未来世界中少年与机器人的冒险故事。"
+                    },
+                    {
+                              "title": "天地无用",
+                              "year": "1992",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "柾木天地与宇宙美少女们的科幻喜剧。"
+                    },
+                    {
+                              "title": "正气大侠",
+                              "year": "1992",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "剪子、石头、布召唤正义英雄的搞笑战斗。"
+                    },
+                    {
+                              "title": "攻壳机动队",
+                              "year": "1995(电影) / 2002-2005(TV)",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "押井守与神山健治的赛博朋克神作，探讨意识与存在的哲学深度作品。"
+                    },
+                    {
+                              "title": "高达系列",
+                              "year": "1979-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "机动战士高达0079、Z高达、W高达、SEED等系列，开创写实机战先河。"
+                    },
+                    {
+                              "title": "机动战士高达0083",
+                              "year": "1991",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "星尘作战与迪拉兹纷争，承上启下的经典OVA。"
+                    },
+                    {
+                              "title": "机动战士高达F-91",
+                              "year": "1991",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "富野由悠季监督的高达剧场版，宇宙巴比伦建国战。"
+                    },
+                    {
+                              "title": "超时空要塞",
+                              "year": "1982-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "可变战斗机、歌声与三角恋，Macross系列是科幻动画的里程碑。"
+                    },
+                    {
+                              "title": "银河英雄传说",
+                              "year": "1988-1997",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "田中芳树原作，杨威利与莱因哈特的宇宙史诗，被誉为太空版三国演义。"
+                    },
+                    {
+                              "title": "宇宙战舰大和号",
+                              "year": "1974-1975 / 1990年代重制",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "人类为拯救地球乘坐大和号前往伊斯坎达尔的宇宙征途。"
+                    },
+                    {
+                              "title": "蓝宝石之谜",
+                              "year": "1990-1991",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "GAINAX出品，改编自海底两万里，娜蒂亚与让的冒险故事。"
+                    },
+                    {
+                              "title": "机动警察",
+                              "year": "1989-1990",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "特车二课驾驶英格拉姆维护治安的科幻警察故事。"
+                    },
+                    {
+                              "title": "无限的未知",
+                              "year": "1999-2000",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "487名学生在太空船上的生存与政治斗争，深刻的社会寓言。"
+                    },
+                    {
+                              "title": "虫孽",
+                              "year": "1999-2000",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "人类与异虫的生存战争，硬核科幻作品。"
+                    },
+                    {
+                              "title": "铁臂阿童木",
+                              "year": "1980年代",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "手冢治虫原作，日本动画的开山之作，机器人阿童木的冒险。"
+                    },
+                    {
+                              "title": "无责任舰长",
+                              "year": "1993",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "泰勒与船员们的搞笑宇宙冒险。"
+                    },
+                    {
+                              "title": "美少女战士",
+                              "year": "1992-1997",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "\"代表月亮消灭你！\"月野兔变身水手月亮守护地球，魔法少女的开山鼻祖。"
+                    },
+                    {
+                              "title": "魔卡少女樱",
+                              "year": "1998-2000",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "CLAMP作品，木之本樱收集库洛牌的魔法冒险，画风甜美治愈。"
+                    },
+                    {
+                              "title": "怪盗圣少女",
+                              "year": "1995-1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "羽丘芽美变身圣少女行侠仗义，与侦探飞鸟二世的恋爱故事。"
+                    },
+                    {
+                              "title": "秀逗魔导士",
+                              "year": "1995-1997",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "莉娜·因巴斯与同伴的搞笑魔法冒险，\"龙破斩\"成为经典咒语。"
+                    },
+                    {
+                              "title": "神秘的世界",
+                              "year": "1995",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "水原诚穿越异世界的奇幻冒险，OVA时代经典。"
+                    },
+                    {
+                              "title": "小魔女DoReMi",
+                              "year": "1999-2004",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "春风DoReMi成为魔女见习生的日常，温馨治愈的魔法少女作品。"
+                    },
+                    {
+                              "title": "爱天使传说",
+                              "year": "1995-1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "桃子上岸成为爱天使与恶魔战斗的魔法少女故事。"
+                    },
+                    {
+                              "title": "小红帽恰恰",
+                              "year": "1994-1995",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "魔法少女恰恰与老师的搞笑魔法故事。"
+                    },
+                    {
+                              "title": "俏皮小花仙",
+                              "year": "1992-1993",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "玛莉蓓尔帮助人类的温馨魔法故事。"
+                    },
+                    {
+                              "title": "缎带魔法姬",
+                              "year": "1992-1993",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "姬子获得魔法项链变身美女的魔法少女故事。"
+                    },
+                    {
+                              "title": "花仙子",
+                              "year": "1979-1980",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "少女小蓓寻找七色花的魔法冒险，经典魔法少女动画。"
+                    },
+                    {
+                              "title": "飞天少女猪",
+                              "year": "1994-1995",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "国分果林变身猪脸女英雄的魔法少女故事。"
+                    },
+                    {
+                              "title": "相聚一刻",
+                              "year": "1986-1988",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "大学生五代裕作与管理员音无响子的恋爱故事，高桥留美子经典。"
+                    },
+                    {
+                              "title": "乱马1/2",
+                              "year": "1989-1992",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "早乙女乱马遇冷水变女孩的搞笑恋爱喜剧，中国功夫元素的完美融入。"
+                    },
+                    {
+                              "title": "名侦探柯南",
+                              "year": "1996-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "工藤新一被缩小后化身柯南侦破案件，推理与爱情的经典结合。"
+                    },
+                    {
+                              "title": "樱桃小丸子",
+                              "year": "1990-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "小丸子的日常校园生活，平凡中见真情，日本国民级动画。"
+                    },
+                    {
+                              "title": "蜡笔小新",
+                              "year": "1992-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "野原新之助的爆笑日常，成人幽默与童真的完美结合。"
+                    },
+                    {
+                              "title": "他和她的故事",
+                              "year": "1998-1999",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "庵野秀明监督的校园恋爱动画，独特的演出风格令人印象深刻。"
+                    },
+                    {
+                              "title": "彼氏彼女的故事",
+                              "year": "1998-1999",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "模范生宫泽雪野与有马总一郎的校园恋爱，心理描写细腻。"
+                    },
+                    {
+                              "title": "我们的存在",
+                              "year": "2006",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "高桥七美与矢野元晴的虐心恋爱，真实而深刻的青春描绘。"
+                    },
+                    {
+                              "title": "NANA",
+                              "year": "2006-2007",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "两个同名女孩在东京的摇滚追梦与恋爱故事，矢泽爱经典。"
+                    },
+                    {
+                              "title": "蜂蜜与四叶草",
+                              "year": "2005-2006",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "美术大学生的青春群像，关于梦想、友情与爱情的温暖故事。"
+                    },
+                    {
+                              "title": "橘子酱男孩",
+                              "year": "1994",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "小石川光希与游游意外同居的青春恋爱故事。"
+                    },
+                    {
+                              "title": "近所物语",
+                              "year": "1995-1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "实果子与太郎的邻居恋爱故事，矢泽爱作品。"
+                    },
+                    {
+                              "title": "校园迷糊大王",
+                              "year": "2004-2008",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "高中生的恋爱喜剧，乌丸大路的天台告白令人难忘。"
+                    },
+                    {
+                              "title": "DNA2",
+                              "year": "1994",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "桃生纯太与葵华琳的科幻恋爱喜剧。"
+                    },
+                    {
+                              "title": "小红豆",
+                              "year": "1995-1998",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "少女小红豆的温馨日常与恋爱成长。"
+                    },
+                    {
+                              "title": "梦幻游戏",
+                              "year": "1995-1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "夕城美朱穿越四神天地书的玄幻恋爱故事。"
+                    },
+                    {
+                              "title": "彩云国物语",
+                              "year": "2006-2007",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "改编自雪乃纱衣轻小说，中国风架空历史题材，讲述少女红秀丽成为彩云国首位女性官吏的励志故事，全2期共78话，Madhouse制作。"
+                    },
+                    {
+                              "title": "高智能方程式",
+                              "year": "1991-2000",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "风见隼人与阿斯拉达赛车的未来赛车故事。"
+                    },
+                    {
+                              "title": "棒球英豪(Touch)",
+                              "year": "1985-1987",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "上杉达也与浅仓南的棒球恋爱故事，安达充代表作。"
+                    },
+                    {
+                              "title": "足球小将",
+                              "year": "1983-1986 / 1994-1997",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "大空翼从小学到世青赛的足球成长史，影响了一代足球少年。"
+                    },
+                    {
+                              "title": "网球王子",
+                              "year": "2001-2005",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "越前龙马进入青春学园网球部的热血故事，必杀技设定炫酷。"
+                    },
+                    {
+                              "title": "棋魂",
+                              "year": "2001-2003",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "进藤光与平安时代棋士藤原佐为的围棋之旅，围棋普及的功臣。"
+                    },
+                    {
+                              "title": "头文字D",
+                              "year": "1998-2014",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "藤原拓海驾驶AE86在秋名山飙车的故事，\"豆腐车\"成为传奇。"
+                    },
+                    {
+                              "title": "四驱兄弟",
+                              "year": "1996-1998",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "星马烈、星马豪兄弟的四驱车比赛，\"旋风冲锋龙卷风\"响彻童年。"
+                    },
+                    {
+                              "title": "棒球大联盟",
+                              "year": "2004-2010",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "茂野吾郎从少棒到MLB的棒球生涯，热血励志的运动佳作。"
+                    },
+                    {
+                              "title": "灌篮少年",
+                              "year": "2003-2005",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "哀川和彦与瑞穗高中篮球队的成长故事。"
+                    },
+                    {
+                              "title": "哨声响起",
+                              "year": "2002",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "风祭将带领樱上水中学足球队的奋斗故事。"
+                    },
+                    {
+                              "title": "H2",
+                              "year": "1995-1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "安达充棒球名作，国见比吕与雨宫雅玲的青春故事。"
+                    },
+                    {
+                              "title": "阿拉蕾",
+                              "year": "1980-1984 / 1997-1999",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "鸟山明作品，机器娃娃阿拉蕾的爆笑日常，\"嘿哟哟\"成为经典。"
+                    },
+                    {
+                              "title": "忍者乱太郎",
+                              "year": "1993-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "忍者学校三人组的搞笑日常，轻松幽默的忍者物语。"
+                    },
+                    {
+                              "title": "乌龙派出所",
+                              "year": "1996-2004",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "两津勘吉在龟有公园的爆笑警察日常，日本国民级搞笑动画。"
+                    },
+                    {
+                              "title": "超级酷乐猫",
+                              "year": "1999-2001",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "一只机器猫酷乐与伙伴们的搞笑冒险，\"喵呜\"口头禅深入人心。"
+                    },
+                    {
+                              "title": "聪明的一休",
+                              "year": "1975-1982",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "小和尚一休用智慧解决难题的经典动画，\"休息，休息一下\"成为童年记忆。"
+                    },
+                    {
+                              "title": "GS美神极乐大作战",
+                              "year": "1993-1994",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "美神令子的搞笑除灵冒险。"
+                    },
+                    {
+                              "title": "为食龙少爷",
+                              "year": "1993",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "丁太郎与喷火龙瓦格尔的搞笑冒险。"
+                    },
+                    {
+                              "title": "行运超人",
+                              "year": "1994-1995",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "永丸一洋倒霉与幸运的超搞笑英雄故事。"
+                    },
+                    {
+                              "title": "金田一少年事件簿",
+                              "year": "1997-2000",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "金田一一与七濑美雪的推理冒险，\"我以爷爷的名义起誓\"成为经典台词。"
+                    },
+                    {
+                              "title": "名侦探柯南剧场版",
+                              "year": "1997-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "每年一部的剧场版，从《引爆摩天楼》到《黑铁的鱼影》，承载无数回忆。"
+                    },
+                    {
+                              "title": "侦探学园Q",
+                              "year": "2003-2004",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "天草流与小Q在侦探学园的推理成长故事。"
+                    },
+                    {
+                              "title": "死亡笔记",
+                              "year": "2006-2007",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "夜神月与L的智斗，心理博弈的巅峰之作。"
+                    },
+                    {
+                              "title": "魍魉之匣",
+                              "year": "2008",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "京极夏彦原作，中禅寺秋彦的怪奇推理，画风独特。"
+                    },
+                    {
+                              "title": "基顿大师",
+                              "year": "1988-1994",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "保险调查员基顿的冒险故事，浦泽直树早期作品。"
+                    },
+                    {
+                              "title": "水果篮子",
+                              "year": "2001",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "本田透与被十二生肖诅咒的草摩家族的故事，温暖治愈。"
+                    },
+                    {
+                              "title": "伊藤润二惊选集",
+                              "year": "2018(动画化)",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "漩涡、富江、双一等经典恐怖漫画的动画化，日式恐怖的巅峰。"
+                    },
+                    {
+                              "title": "another",
+                              "year": "2012",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "转学生榊原恒一与不存在之人见崎鸣的死亡诅咒故事。"
+                    },
+                    {
+                              "title": "寒蝉鸣泣之时",
+                              "year": "2006-2007",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "雏见泽村的无限轮回惨剧，悬疑与恐怖的经典。"
+                    },
+                    {
+                              "title": "尸体派对",
+                              "year": "2013",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "被诅咒的天神小学，血腥与恐怖的代表作。"
+                    },
+                    {
+                              "title": "怪化猫",
+                              "year": "2007",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "卖药郎退治妖怪的故事，浮世绘画风独树一帜。"
+                    },
+                    {
+                              "title": "风之谷",
+                              "year": "1984",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "娜乌西卡在腐海与巨神兵的世界中守护人类的希望。"
+                    },
+                    {
+                              "title": "天空之城",
+                              "year": "1986",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "巴鲁与希达寻找漂浮在天空中的拉普达的冒险。"
+                    },
+                    {
+                              "title": "龙猫",
+                              "year": "1988",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "小月与小梅与森林精灵龙猫的温馨相遇，宫崎骏最纯真的作品。"
+                    },
+                    {
+                              "title": "萤火虫之墓",
+                              "year": "1988",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "战火中兄妹求生的悲剧，高畑勋催泪神作。"
+                    },
+                    {
+                              "title": "魔女宅急便",
+                              "year": "1989",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "琪琪的魔女修行与成长，关于独立与勇气的故事。"
+                    },
+                    {
+                              "title": "红猪",
+                              "year": "1992",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "被诅咒变成猪的飞行员波鲁克的浪漫冒险。"
+                    },
+                    {
+                              "title": "幽灵公主",
+                              "year": "1997",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "阿席达卡与珊在人与自然冲突中的救赎之旅。"
+                    },
+                    {
+                              "title": "千与千寻",
+                              "year": "2001",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "千寻在神灵世界的成长与救赎，奥斯卡最佳动画长片。"
+                    },
+                    {
+                              "title": "哈尔的移动城堡",
+                              "year": "2004",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "苏菲与魔法师哈尔的奇幻爱情，反战主题深刻。"
+                    },
+                    {
+                              "title": "悬崖上的金鱼姬",
+                              "year": "2008",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "波妞与宗介的纯真爱情，手绘动画的巅峰。"
+                    },
+                    {
+                              "title": "百变狸猫",
+                              "year": "1994",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "狸猫与人类争夺家园的环保寓言。"
+                    },
+                    {
+                              "title": "侧耳倾听",
+                              "year": "1995",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "月岛雯与天泽圣司的青春恋爱与梦想追求。"
+                    },
+                    {
+                              "title": "岁月的童话",
+                              "year": "1991",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "冈岛妙子的乡村回忆与成长。"
+                    },
+                    {
+                              "title": "听见涛声",
+                              "year": "1993",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "高知县的青春恋爱故事，吉卜力写实风格作品。"
+                    },
+                    {
+                              "title": "我的邻居山田君",
+                              "year": "1999",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "山田一家的日常喜剧，水彩画风独特。"
+                    },
+                    {
+                              "title": "钢之炼金术师",
+                              "year": "2003-2004 / 2009-2010",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "等价交换原则下，爱德华兄弟寻找恢复身体方法的旅程。FA版被誉为完美改编。"
+                    },
+                    {
+                              "title": "魔动王",
+                              "year": "1989-1990",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "遥大地与魔动王机器人的月球冒险，光能使者的故事。"
+                    },
+                    {
+                              "title": "寻找满月",
+                              "year": "2002-2003",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "种村有菜原作，身患绝症的女孩成为歌手的感人故事。"
+                    },
+                    {
+                              "title": "罗密欧的蓝天",
+                              "year": "1995",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "罗密欧与好友的友情与成长故事，世界名作剧场系列。"
+                    },
+                    {
+                              "title": "奥运高手",
+                              "year": "1996-1997",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "藤卷骏的体操成长故事。"
+                    },
+                    {
+                              "title": "欢乐课程",
+                              "year": "2002",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "五位老师成为男主监护人的后宫喜剧。"
+                    },
+                    {
+                              "title": "地狱少女",
+                              "year": "2005-2017",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "午夜零时访问地狱通信，阎魔爱将怨恨之人送往地狱。"
+                    },
+                    {
+                              "title": "哆啦A梦",
+                              "year": "1979-2005 / 2005-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "来自22世纪的猫型机器人帮助大雄，每个孩子都想拥有的伙伴。"
+                    },
+                    {
+                              "title": "数码宝贝",
+                              "year": "1999-2000",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "八神太一等被选召的孩子们在数码世界的冒险，Butter-Fly响起泪目。"
+                    },
+                    {
+                              "title": "神奇宝贝(精灵宝可梦)",
+                              "year": "1997-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "小智与皮卡丘的收服之旅，\"就决定是你了！\"成为经典。"
+                    },
+                    {
+                              "title": "游戏王",
+                              "year": "1998-2004",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "武藤游戏与黑暗游戏的卡牌对决，青眼白龙与黑魔术师成为 iconic。"
+                    },
+                    {
+                              "title": "游戏王GX",
+                              "year": "2004-2008",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "游城十代在决斗学园的冒险，融合召唤的代表。"
+                    },
+                    {
+                              "title": "精灵宝可梦无印篇",
+                              "year": "1997-2002",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "关都、橘子群岛、城都的冒险，最经典的宝可梦动画。"
+                    },
+                    {
+                              "title": "中华小当家",
+                              "year": "1997-1998",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "刘昴星追寻料理巅峰的冒险，\"发光的料理\"令人垂涎。"
+                    },
+                    {
+                              "title": "猫眼三姐妹",
+                              "year": "1983-1985",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "来生三姐妹盗取父亲遗作的侠盗故事，北条司早期作品。"
+                    },
+                    {
+                              "title": "怪医黑杰克",
+                              "year": "2004-2006",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "手冢治虫原作，无证神医黑杰克的医疗故事。"
+                    },
+                    {
+                              "title": "爆漫王",
+                              "year": "2010-2013",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "高木秋人与真城最高成为漫画家的奋斗故事。"
+                    },
+                    {
+                              "title": "反叛的鲁路修",
+                              "year": "2006-2008",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "鲁路修获得Geass后对抗不列颠尼亚帝国的复仇与救赎。"
+                    },
+                    {
+                              "title": "Code Geass R2",
+                              "year": "2008",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "鲁路修的最终章，\"零之镇魂曲\"成为传奇结局。"
+                    },
+                    {
+                              "title": "命运石之门",
+                              "year": "2011",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "凤凰院凶真的时间跳跃冒险，科学与命运的交织。"
+                    },
+                    {
+                              "title": "未闻花名",
+                              "year": "2011",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "面码与童年伙伴的感人重逢，\"找到你了！\"泪目。"
+                    },
+                    {
+                              "title": "CLANNAD ~AFTER STORY~",
+                              "year": "2008-2009",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "朋也与渚的婚后生活，\"能哭的地方只有厕所和爸爸的怀里\"。"
+                    },
+                    {
+                              "title": "Kanon",
+                              "year": "2006-2007",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "相泽祐一与七位少女的冬日物语。"
+                    },
+                    {
+                              "title": "零之使魔",
+                              "year": "2006-2012",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "露易丝与才人的异世界冒险，钉宫四萌之一。"
+                    },
+                    {
+                              "title": "某科学的超电磁炮",
+                              "year": "2009-2020",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "御坂美琴的学园都市冒险，\"你指尖跳动的电光，是我此生不灭的信仰\"。"
+                    },
+                    {
+                              "title": "夏目友人帐",
+                              "year": "2008-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "夏目贵志与妖怪们的温暖故事，治愈系巅峰。"
+                    },
+                    {
+                              "title": "虫师",
+                              "year": "2005-2006",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "银古游历各地解决虫带来的问题，意境深远的治愈佳作。"
+                    },
+                    {
+                              "title": "无头骑士异闻录",
+                              "year": "2010",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "池袋的都市传说与各方势力的交织。"
+                    },
+                    {
+                              "title": "青之驱魔师",
+                              "year": "2011",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "奥村燐与奥村雪男的双胞胎驱魔师故事。"
+                    },
+                    {
+                              "title": "罪恶王冠",
+                              "year": "2011",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "樱满集获得王之能力后的挣扎与成长。"
+                    },
+                    {
+                              "title": "未来日记",
+                              "year": "2011-2012",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "我妻由乃与天野雪辉的生存游戏，病娇的代表。"
+                    },
+                    {
+                              "title": "命运/零(Fate/Zero)",
+                              "year": "2011-2012",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "第四次圣杯战争的前传，ufotable巅峰制作。"
+                    },
+                    {
+                              "title": "东京喰种",
+                              "year": "2014-2015",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "金木研从人类到喰种的痛苦转变。"
+                    },
+                    {
+                              "title": "寄生兽",
+                              "year": "2014-2015",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "新一与米奇共生的环保寓言。"
+                    },
+                    {
+                              "title": "东京教父",
+                              "year": "2003",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "今敏导演的圣诞温情故事，三个流浪者的救赎。"
+                    },
+                    {
+                              "title": "铃音",
+                              "year": "1998",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "岩仓玲音在网络世界中的身份探索，实验性动画。"
+                    },
+                    {
+                              "title": "少女革命",
+                              "year": "1996-1997",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "天上欧蒂娜的王子与蔷薇新娘的故事，百合与女权主题。"
+                    },
+                    {
+                              "title": "万有引力",
+                              "year": "1999-2001",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "新堂愁一与由贵瑛里的BL音乐故事。"
+                    },
+                    {
+                              "title": "快杰蒸汽侦探团",
+                              "year": "1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "蒸汽朋克风格的侦探冒险故事。"
+                    },
+                    {
+                              "title": "鬼灭之刃",
+                              "year": "2019-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "炭治郎与妹妹祢豆子的鬼杀之旅。"
+                    },
+                    {
+                              "title": "关键金属偶像",
+                              "year": "1990年代",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "机械与偶像结合的独特科幻动画作品。"
+                    },
+                    {
+                              "title": "恶魔的花嫁",
+                              "year": "1980年代",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "少女与恶魔的禁忌之恋，经典少女向作品。"
+                    },
+                    {
+                              "title": "风筝",
+                              "year": "1998",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "梅津泰臣监督的经典暴力美学OVA作品。"
+                    },
+                    {
+                              "title": "哭泣杀神",
+                              "year": "1988-1994",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "杀手组织的残酷世界，暴力美学的代表作。"
+                    },
+                    {
+                              "title": "龙儿太郎",
+                              "year": "1979",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "寻找母亲的感人冒险故事，日本经典动画电影。"
+                    },
+                    {
+                              "title": "森林大帝(1989重置版)",
+                              "year": "1989-1990",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "白狮子雷欧的丛林冒险，手冢治虫经典重制。"
+                    },
+                    {
+                              "title": "勇闯黄金城",
+                              "year": "2000",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "杜鲁多与米格尔寻找黄金城的冒险。"
+                    },
+                    {
+                              "title": "猫和老鼠",
+                              "year": "1940-1967",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "汤姆与杰瑞的追逐喜剧，默片喜剧的巅峰。"
+                    },
+                    {
+                              "title": "乐一通",
+                              "year": "1930-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "兔八哥、达菲鸭等经典角色的搞笑合集。"
+                    },
+                    {
+                              "title": "空中大灌篮",
+                              "year": "1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "乔丹与兔八哥合作的篮球喜剧。"
+                    },
+                    {
+                              "title": "钢铁巨人",
+                              "year": "1999",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "小男孩与钢铁巨人的感人科幻故事。"
+                    },
+                    {
+                              "title": "圣诞怪杰",
+                              "year": "2000",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "格林奇偷走圣诞节的经典故事。"
+                    },
+                    {
+                              "title": "极地特快",
+                              "year": "2004",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "圣诞列车带孩子们去北极的冒险。"
+                    },
+                    {
+                              "title": "快乐的大脚",
+                              "year": "2006",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "会跳舞的企鹅玛宝的励志故事。"
+                    },
+                    {
+                              "title": "大力水手",
+                              "year": "1960-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "吃菠菜变强的波派，\"我是大力水手，我喜欢吃菠菜\"。"
+                    },
+                    {
+                              "title": "蓝精灵",
+                              "year": "1981-1989",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "\"在山的那边海的那边有一群蓝精灵\"。"
+                    },
+                    {
+                              "title": "忍者神龟",
+                              "year": "1987-1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "四只乌龟在纽约的正义战斗。"
+                    },
+                    {
+                              "title": "变形金刚",
+                              "year": "1984-1987",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "汽车人与霸天虎的战斗，\"汽车人，变形出发！\""
+                    },
+                    {
+                              "title": "猛兽侠/超能勇士 (Beast Wars)",
+                              "year": "1996-1999",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "美国孩之宝制作，全3D动画先驱。讲述巨无霸和原始兽在史前地球的斗争，变形金刚G1续作。"
+                    },
+                    {
+                              "title": "星际恐龙 (Extreme Dinosaurs)",
+                              "year": "1997",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "美国科幻冒险动画，DIC娱乐公司制作，共52集。讲述被外星人改造的正义恐龙与迅猛龙战斗，维护世界和平的故事。主要角色：霸天龙、剑背龙、飞天龙、三角龙等。"
+                    },
+                    {
+                              "title": "变形金刚：猛兽侠 (Beast Machines)",
+                              "year": "1999-2000",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "超能勇士续作，延续猛兽侠剧情，3D动画经典。"
+                    },
+                    {
+                              "title": "加菲猫",
+                              "year": "1988-1994",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "懒猫加菲的幽默日常。"
+                    },
+                    {
+                              "title": "海绵宝宝",
+                              "year": "1999-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "海绵宝宝与派大星的海底搞笑日常。"
+                    },
+                    {
+                              "title": "飞天小女警",
+                              "year": "1998-2005",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "三位小女警保护小镇市的超级英雄故事。"
+                    },
+                    {
+                              "title": "探险活宝",
+                              "year": "2010-2018",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "芬恩与杰克的奇幻冒险。"
+                    },
+                    {
+                              "title": "史努比",
+                              "year": "1965-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "查理·布朗与史努比的温馨日常。"
+                    },
+                    {
+                              "title": "丁丁历险记",
+                              "year": "1991-1992",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "丁丁与白雪的冒险故事。"
+                    },
+                    {
+                              "title": "小熊维尼",
+                              "year": "1966-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "维尼与百亩森林朋友的温馨故事。"
+                    },
+                    {
+                              "title": "小马宝莉",
+                              "year": "2010-至今",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "紫悦与朋友的友谊魔法。"
+                    },
+                    {
+                              "title": "鼹鼠的故事",
+                              "year": "1957-2002",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "捷克经典，小鼹鼠的无声温情故事。"
+                    },
+                    {
+                              "title": "巴巴爸爸",
+                              "year": "1974",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "\"克里克里克里，巴巴变\"，可以随意变形的巴巴家族。"
+                    },
+                    {
+                              "title": "非凡公主希瑞",
+                              "year": "1985-1987",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "\"赐予我力量吧！\"希瑞变身经典。"
+                    },
+                    {
+                              "title": "宇宙的巨人希曼",
+                              "year": "1983-1985",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "\"赐予我力量吧！\"希曼变身的经典记忆。"
+                    },
+                    {
+                              "title": "布雷斯塔警长",
+                              "year": "1987-1988",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "\"鹰的眼睛，狼的耳朵，豹的速度，熊的力量\"。"
+                    },
+                    {
+                              "title": "丹佛最后的恐龙",
+                              "year": "1988",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "一只摇滚恐龙丹佛与几个年轻人的友谊与冒险。"
+                    },
+                    {
+                              "title": "特种部队",
+                              "year": "1985-1986",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "GI Joe特种部队对抗眼镜蛇组织的经典动画。"
+                    },
+                    {
+                              "title": "国王与小鸟",
+                              "year": "1980",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "法国经典动画，乔治·奥威尔风格的反乌托邦童话。"
+                    },
+                    {
+                              "title": "神探加杰特",
+                              "year": "1983-1986",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "糊涂侦探加杰特与秘密武器的故事。"
+                    },
+                    {
+                              "title": "华斯比历险记",
+                              "year": "1987",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "泰迪熊华斯比的奇幻冒险。"
+                    },
+                    {
+                              "title": "怪鸭历险记",
+                              "year": "1988",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "德古拉鸭子的搞笑吸血鬼故事。"
+                    },
+                    {
+                              "title": "地球超人",
+                              "year": "1990-1996",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "五位少年召唤地球超人的环保动画。"
+                    },
+                    {
+                              "title": "夜行神龙",
+                              "year": "1994-1997",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "石像鬼在夜晚醒来的黑暗奇幻故事。"
+                    },
+                    {
+                              "title": "下课后",
+                              "year": "1997-2001",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "课间休息时的校园冒险故事。"
+                    },
+                    {
+                              "title": "德克斯特的实验室",
+                              "year": "1996-2003",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "天才少年德克斯特的秘密实验室。"
+                    },
+                    {
+                              "title": "拼命郎约翰尼",
+                              "year": "1997-2004",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "自恋帅哥约翰尼的搞笑日常。"
+                    },
+                    {
+                              "title": "鸡与牛",
+                              "year": "1997-1999",
+                              "rating": 5,
+                              "category": "jp",
+                              "desc": "兄妹鸡牛的荒诞搞笑故事。"
+                    }
+          ],
+          "china": [
+                    {
+                              "title": "大闹天宫",
+                              "year": "1961-1964",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "万籁鸣执导，中国动画的巅峰之作，孙悟空的经典形象。"
+                    },
+                    {
+                              "title": "哪吒闹海",
+                              "year": "1979",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "哪吒自刎救陈塘关的悲剧，上海美影厂代表作。"
+                    },
+                    {
+                              "title": "天书奇谭",
+                              "year": "1983",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "袁公与蛋生对抗狐狸精的故事，独特的中国画风。"
+                    },
+                    {
+                              "title": "黑猫警长",
+                              "year": "1984-1987",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "\"眼睛瞪得像铜铃\"，五集经典警匪动画。"
+                    },
+                    {
+                              "title": "葫芦兄弟",
+                              "year": "1986-1987",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "七娃救爷爷的经典故事，剪纸动画的杰作。"
+                    },
+                    {
+                              "title": "葫芦小金刚",
+                              "year": "1988-1991",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "葫芦兄弟的续作，七娃合体战蛇精。"
+                    },
+                    {
+                              "title": "邋遢大王奇遇记",
+                              "year": "1987",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "\"小邋遢\"的地下老鼠王国冒险。"
+                    },
+                    {
+                              "title": "舒克和贝塔",
+                              "year": "1989-1992",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "郑渊洁原作，开飞机的舒克与开坦克的贝塔。"
+                    },
+                    {
+                              "title": "阿凡提的故事",
+                              "year": "1979-1988",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "维吾尔族智者阿凡提的民间故事，木偶动画经典。"
+                    },
+                    {
+                              "title": "三个和尚",
+                              "year": "1980",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "\"一个和尚挑水喝，两个和尚抬水喝\"的寓言故事。"
+                    },
+                    {
+                              "title": "九色鹿",
+                              "year": "1981",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "根据敦煌壁画改编的佛教故事，艺术价值极高。"
+                    },
+                    {
+                              "title": "雪孩子",
+                              "year": "1980",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "雪孩子为救小白兔融化的感人故事。"
+                    },
+                    {
+                              "title": "老狼请客",
+                              "year": "1980",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "\"今天好运气，老狼请吃鸡\"的民间故事。"
+                    },
+                    {
+                              "title": "南郭先生",
+                              "year": "1981",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "\"滥竽充数\"成语故事的动画版。"
+                    },
+                    {
+                              "title": "小蝌蚪找妈妈",
+                              "year": "1960",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "中国第一部水墨动画，齐白石画风的绝美呈现。"
+                    },
+                    {
+                              "title": "神笔",
+                              "year": "1955",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "马良用神笔帮助穷人的经典故事。"
+                    },
+                    {
+                              "title": "骄傲的将军",
+                              "year": "1956",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "\"骄傲使人落后\"的寓言故事。"
+                    },
+                    {
+                              "title": "半夜鸡叫",
+                              "year": "1970",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "周扒皮与长工的故事。"
+                    },
+                    {
+                              "title": "没头脑和不高兴",
+                              "year": "1962",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "两个性格缺陷孩子的搞笑故事。"
+                    },
+                    {
+                              "title": "牧笛",
+                              "year": "1963",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "水墨动画经典，牧童与牛的田园诗意。"
+                    },
+                    {
+                              "title": "草原英雄小姐妹",
+                              "year": "1965",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "龙梅和玉荣保护羊群的真实故事。"
+                    },
+                    {
+                              "title": "山水情",
+                              "year": "1988",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "中国水墨动画的巅峰，师徒情谊的写意表达。"
+                    },
+                    {
+                              "title": "鹬蚌相争",
+                              "year": "1983",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "\"鹬蚌相争，渔翁得利\"成语故事。"
+                    },
+                    {
+                              "title": "猴子捞月",
+                              "year": "1981",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "一群猴子捞水中月亮的寓言。"
+                    },
+                    {
+                              "title": "老虎学艺",
+                              "year": "1982",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "老虎向猫学艺却想学吃猫的故事。"
+                    },
+                    {
+                              "title": "孔雀的焰火",
+                              "year": "1982",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "孔雀帮助他人却失去美丽羽毛的寓言。"
+                    },
+                    {
+                              "title": "大闹天宫(修复版)",
+                              "year": "2012",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "经典修复，重返大银幕。"
+                    },
+                    {
+                              "title": "西游记(动画版)",
+                              "year": "1999",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "央视动画版西游记，\"猴哥猴哥\"的主题曲家喻户晓。"
+                    },
+                    {
+                              "title": "哪吒传奇",
+                              "year": "2003",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "\"是他，就是他，我们的英雄小哪吒\"，52集经典。"
+                    },
+                    {
+                              "title": "小鲤鱼历险记",
+                              "year": "2007",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "泡泡寻找龙鳞打败赖皮蛇的冒险。"
+                    },
+                    {
+                              "title": "虹猫蓝兔七侠传",
+                              "year": "2006-2007",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "七剑合璧对抗魔教的长篇武侠动画。"
+                    },
+                    {
+                              "title": "蓝猫淘气三千问",
+                              "year": "1999-2008",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "科普动画的里程碑，涵盖天文地理等知识。"
+                    },
+                    {
+                              "title": "大头儿子和小头爸爸",
+                              "year": "1995-至今",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "一家三口的温馨日常，国产家庭动画代表。"
+                    },
+                    {
+                              "title": "海尔兄弟",
+                              "year": "1995-2001",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "海尔集团赞助的科普冒险动画。"
+                    },
+                    {
+                              "title": "围棋少年",
+                              "year": "2005-2008",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "江流儿的围棋成长故事，\"天地大同\"令人难忘。"
+                    },
+                    {
+                              "title": "神厨小福贵",
+                              "year": "2007",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "小福贵成为御厨的励志故事，结局令人唏嘘。"
+                    },
+                    {
+                              "title": "小宋当家",
+                              "year": "2008",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "聪明的小宋用智慧解决问题的民间故事。"
+                    },
+                    {
+                              "title": "淘气包马小跳",
+                              "year": "2008",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "杨红樱原作，马小跳的校园生活。"
+                    },
+                    {
+                              "title": "快乐星猫",
+                              "year": "2008-2016",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "星猫与十二星座战士的冒险。"
+                    },
+                    {
+                              "title": "喜羊羊与灰太狼",
+                              "year": "2005-至今",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "青青草原上的狼羊追逐，00后的童年记忆。"
+                    },
+                    {
+                              "title": "果宝特攻",
+                              "year": "2010-2014",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "水果机甲的搞笑冒险。"
+                    },
+                    {
+                              "title": "超兽武装",
+                              "year": "2011",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "火麟飞等人的超兽战士冒险，深度剧情令人惊喜。"
+                    },
+                    {
+                              "title": "洛洛历险记",
+                              "year": "2008",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "洛洛进入机战王游戏的冒险。"
+                    },
+                    {
+                              "title": "神兵小将",
+                              "year": "2007-2008",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "黄玉郎原作，南宫问天与神兵兽的冒险。"
+                    },
+                    {
+                              "title": "电击小子",
+                              "year": "2009-2010",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "小光变身电击小子保护家园。"
+                    },
+                    {
+                              "title": "宋代足球小将",
+                              "year": "2010",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "洪风与向流云的蹴鞠冒险。"
+                    },
+                    {
+                              "title": "弹珠传说",
+                              "year": "2010",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "欧阳小枫的弹珠竞技之旅。"
+                    },
+                    {
+                              "title": "星游记",
+                              "year": "2011",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "麦当寻找彩虹海的太空冒险，国产热血动画代表作。"
+                    },
+                    {
+                              "title": "魔方大厦",
+                              "year": "1994",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "莱克进入魔方世界的奇幻冒险，童年阴影系列。"
+                    },
+                    {
+                              "title": "大盗贼",
+                              "year": "1990",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "\"大盗贼霍森布鲁兹老爷\"，改编自德国童话。"
+                    },
+                    {
+                              "title": "鹿与牛",
+                              "year": "1990",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "上海美影厂水墨动画，鹿与牛的友谊寓言。"
+                    },
+                    {
+                              "title": "蓝皮鼠大脸猫",
+                              "year": "1994-2000",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "蓝皮鼠与大脸猫的奇妙冒险，葛冰原作经典。"
+                    },
+                    {
+                              "title": "特别车队",
+                              "year": "1992-1993",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "黑帮题材的国产动画，特种车队与走私团伙的较量。"
+                    },
+                    {
+                              "title": "自古英雄出少年",
+                              "year": "1995-1996",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "讲述古今中外少年英雄故事的系列动画。"
+                    },
+                    {
+                              "title": "小糊涂神",
+                              "year": "1998",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "\"金糊涂银糊涂不如咱家的老糊涂\"，迷糊小神仙的搞笑故事。"
+                    },
+                    {
+                              "title": "雁阵",
+                              "year": "1991",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "上海美影厂剪纸动画，大雁南飞的感人故事。"
+                    },
+                    {
+                              "title": "医生与皇帝",
+                              "year": "1991",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "根据民间故事改编的讽刺动画短片。"
+                    },
+                    {
+                              "title": "抬驴",
+                              "year": "1991",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "父子骑驴与抬驴的民间寓言故事。"
+                    },
+                    {
+                              "title": "眉间尺",
+                              "year": "1991",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "根据鲁迅《故事新编》改编的复仇故事。"
+                    },
+                    {
+                              "title": "十二只蚊子和五个人",
+                              "year": "1992",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "上海美影厂讽刺动画短片，寓意深刻。"
+                    },
+                    {
+                              "title": "麻雀选大王",
+                              "year": "1992",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "根据民间故事改编的剪纸动画。"
+                    },
+                    {
+                              "title": "鹿女",
+                              "year": "1993",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "上海美影厂剪纸动画，改编自敦煌故事。"
+                    },
+                    {
+                              "title": "红鼻子",
+                              "year": "1993-1994",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "小木偶红鼻子的奇幻冒险故事。"
+                    },
+                    {
+                              "title": "隐身探长",
+                              "year": "1993-1994",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "动物侦探利用隐身术破案的系列动画。"
+                    },
+                    {
+                              "title": "哭鼻子大王",
+                              "year": "1994",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "根据童话改编的动画电影，爱哭孩子的成长故事。"
+                    },
+                    {
+                              "title": "学问猫教汉字",
+                              "year": "1998",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "科普动画，学问猫教小朋友学汉字。"
+                    },
+                    {
+                              "title": "怎么来的",
+                              "year": "1998",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "科普系列动画，解答生活中的十万个为什么。"
+                    },
+                    {
+                              "title": "霹雳贝贝",
+                              "year": "1999",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "带电男孩贝贝的科幻冒险，中国首部儿童科幻电影动画版。"
+                    },
+                    {
+                              "title": "十二生肖",
+                              "year": "1995",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "十二生肖与妖怪战斗的神话故事，每集一个生肖传说。"
+                    },
+                    {
+                              "title": "天上掉下个猪八戒",
+                              "year": "2005",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "天蓬元帅被贬下凡的搞笑冒险。"
+                    },
+                    {
+                              "title": "的笃小和尚",
+                              "year": "2003",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "小和尚的修行日常与禅意故事。"
+                    },
+                    {
+                              "title": "魔角侦探",
+                              "year": "2010",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "齐乐天的推理冒险，国产侦探动画佳作。"
+                    },
+                    {
+                              "title": "成龙历险记",
+                              "year": "2000-2005",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "成龙寻找十二符咒的冒险故事，中美合拍经典。"
+                    },
+                    {
+                              "title": "福五鼠",
+                              "year": "2008",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "以《孙子兵法》为蓝本的武侠动画。"
+                    },
+                    {
+                              "title": "象棋王",
+                              "year": "2008",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "无悔的象棋成长之路，\"无悔冲啊！\""
+                    },
+                    {
+                              "title": "雷速登闪电冲线",
+                              "year": "2007",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "遥控赛车竞技动画，\"闪电冲线！\""
+                    },
+                    {
+                              "title": "晶码战士",
+                              "year": "2010",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "四位少年与晶码兽的科幻冒险。"
+                    },
+                    {
+                              "title": "千千问",
+                              "year": "2002",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "科普动画，解答孩子们的十万个为什么。"
+                    },
+                    {
+                              "title": "中华勤学故事",
+                              "year": "2004",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "讲述古人勤奋好学的励志故事。"
+                    },
+                    {
+                              "title": "中华传统美德故事",
+                              "year": "2000",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "讲述中华传统美德的系列教育动画。"
+                    },
+                    {
+                              "title": "可可可心一家人",
+                              "year": "2003",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "温馨搞笑的家庭情景动画。"
+                    },
+                    {
+                              "title": "秦时明月",
+                              "year": "2007-至今",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "国产3D武侠动画的巅峰，历史与武侠的完美结合。"
+                    },
+                    {
+                              "title": "中华小子",
+                              "year": "2006",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "中法合拍，三位少林俗家弟子的冒险。"
+                    },
+                    {
+                              "title": "天眼神童",
+                              "year": "2005",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "天眼变身后帮助香凌的魔法故事。"
+                    },
+                    {
+                              "title": "东方神娃",
+                              "year": "2005",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "龙娃凤娃拯救人类的神话故事。"
+                    },
+                    {
+                              "title": "大耳朵图图",
+                              "year": "2004-至今",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "图图一家三口的温馨搞笑日常。"
+                    },
+                    {
+                              "title": "快乐东西",
+                              "year": "2003",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "老北京胡同里东西两家的爆笑生活，京味十足的都市动画。"
+                    },
+                    {
+                              "title": "马丁的早晨",
+                              "year": "2003-2004",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "中法合拍，每天早晨醒来都会变成不同角色的马丁的奇妙冒险。"
+                    },
+                    {
+                              "title": "大英雄狄青",
+                              "year": "2003",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "北宋名将狄青的成长故事，历史题材动画的经典之作。"
+                    },
+                    {
+                              "title": "隋唐英雄传",
+                              "year": "2003",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "隋末唐初英雄辈出的历史传奇动画。"
+                    },
+                    {
+                              "title": "白鸽岛",
+                              "year": "2003",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "科幻题材的国产动画，讲述未来世界的故事。"
+                    },
+                    {
+                              "title": "封神榜传奇",
+                              "year": "1999",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "根据《封神演义》改编的神话动画，哪吒、姜子牙等经典形象。"
+                    },
+                    {
+                              "title": "我为歌狂",
+                              "year": "2001",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "国产首部校园音乐题材动画，Open乐队的青春追梦故事。"
+                    },
+                    {
+                              "title": "鸭子侦探",
+                              "year": "2000",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "中外合作，鸭子侦探梅勒德的推理冒险故事。"
+                    },
+                    {
+                              "title": "精灵世纪",
+                              "year": "2006-2008",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "国产3D动画，文具精灵的奇幻冒险。"
+                    },
+                    {
+                              "title": "宝莲灯",
+                              "year": "1999",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "上海美影厂经典，沉香救母的感人神话故事。"
+                    },
+                    {
+                              "title": "瑶玲啊瑶玲",
+                              "year": "2004",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "中韩合拍，狐狸少女瑶玲寻找圆梦书的魔法故事。"
+                    },
+                    {
+                              "title": "梦里人",
+                              "year": "2005",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "改编自姚非拉漫画，讲述中学生的青春梦想与成长。"
+                    },
+                    {
+                              "title": "可可的魔伞",
+                              "year": "2000",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "小女孩可可的魔法伞带她去往奇幻世界的冒险。"
+                    },
+                    {
+                              "title": "超级球迷",
+                              "year": "2000",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "足球题材国产动画，讲述球迷的故事。"
+                    },
+                    {
+                              "title": "家有开心果",
+                              "year": "2000",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "家庭情景喜剧风格的国产动画。"
+                    },
+                    {
+                              "title": "小和尚",
+                              "year": "2001",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "小和尚的修行日常与智慧故事。"
+                    },
+                    {
+                              "title": "钟点父子",
+                              "year": "2002",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "讲述临时父子关系的温馨搞笑动画。"
+                    },
+                    {
+                              "title": "BRAVO东东",
+                              "year": "2004",
+                              "rating": 5,
+                              "category": "cn",
+                              "desc": "国产青春校园动画，东东的爆笑日常生活。"
+                    }
+          ],
+          "us": [
+                    {
+                              "title": "白雪公主与七个小矮人",
+                              "year": "1937",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "世界第一部彩色动画长片，迪士尼的开山之作。"
+                    },
+                    {
+                              "title": "木偶奇遇记",
+                              "year": "1940",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "匹诺曹的冒险，\"说谎鼻子会变长\"。"
+                    },
+                    {
+                              "title": "小飞象",
+                              "year": "1941",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "丹波的大耳朵让它能够飞翔。"
+                    },
+                    {
+                              "title": "小鹿斑比",
+                              "year": "1942",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "斑比在森林中的成长与失去母亲的悲剧。"
+                    },
+                    {
+                              "title": "仙履奇缘(灰姑娘)",
+                              "year": "1950",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "灰姑娘的水晶鞋童话，迪士尼经典。"
+                    },
+                    {
+                              "title": "爱丽丝梦游仙境",
+                              "year": "1951",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "爱丽丝的奇幻地下世界冒险。"
+                    },
+                    {
+                              "title": "小飞侠",
+                              "year": "1953",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "彼得·潘与温蒂在梦幻岛的冒险。"
+                    },
+                    {
+                              "title": "睡美人",
+                              "year": "1959",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "奥罗拉公主与菲利普王子的爱情。"
+                    },
+                    {
+                              "title": "101忠狗",
+                              "year": "1961",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "斑点狗Pongo与Perdita拯救小狗的故事。"
+                    },
+                    {
+                              "title": "森林王子",
+                              "year": "1967",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "毛克利在丛林中与动物们的成长。"
+                    },
+                    {
+                              "title": "小美人鱼",
+                              "year": "1989",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "爱丽儿公主的人类世界追求，迪士尼文艺复兴开端。"
+                    },
+                    {
+                              "title": "美女与野兽",
+                              "year": "1991",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "贝儿与野兽的童话爱情，首部获奥斯卡最佳影片提名的动画。"
+                    },
+                    {
+                              "title": "阿拉丁",
+                              "year": "1992",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "阿拉丁与神灯的冒险，茉莉公主与灯神。"
+                    },
+                    {
+                              "title": "狮子王",
+                              "year": "1994",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "辛巴为父报仇成为草原之王的史诗，\"哈库那玛塔塔\"。"
+                    },
+                    {
+                              "title": "风中奇缘",
+                              "year": "1995",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "宝嘉康蒂与约翰·史密斯的爱情故事。"
+                    },
+                    {
+                              "title": "钟楼怪人",
+                              "year": "1996",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "卡西莫多的巴黎圣母院故事。"
+                    },
+                    {
+                              "title": "大力士",
+                              "year": "1997",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "海格力斯的希腊神话改编。"
+                    },
+                    {
+                              "title": "花木兰",
+                              "year": "1998",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "花木兰代父从军的中国故事。"
+                    },
+                    {
+                              "title": "泰山",
+                              "year": "1999",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "泰山在丛林中的成长与珍妮的爱情。"
+                    },
+                    {
+                              "title": "幻想曲2000",
+                              "year": "1999",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "古典音乐与动画结合的视觉盛宴。"
+                    },
+                    {
+                              "title": "变身国王",
+                              "year": "2000",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "库斯德国王被变成骆马的搞笑冒险。"
+                    },
+                    {
+                              "title": "失落的帝国",
+                              "year": "2001",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "亚特兰蒂斯的探险故事。"
+                    },
+                    {
+                              "title": "星际宝贝",
+                              "year": "2002",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "史迪奇与莉萝的夏威夷姐妹情。"
+                    },
+                    {
+                              "title": "熊的传说",
+                              "year": "2003",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "肯尼变成熊后的自然感悟。"
+                    },
+                    {
+                              "title": "星际宝贝史迪奇",
+                              "year": "2003",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "史迪奇的衍生电影。"
+                    },
+                    {
+                              "title": "四眼天鸡",
+                              "year": "2005",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "小鸡玛德认为天要塌下来的搞笑故事。"
+                    },
+                    {
+                              "title": "闪电狗",
+                              "year": "2008",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "狗狗波特的超级英雄冒险与现实世界的碰撞。"
+                    },
+                    {
+                              "title": "公主与青蛙",
+                              "year": "2009",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "迪士尼回归手绘动画的经典童话。"
+                    },
+                    {
+                              "title": "玩具总动员",
+                              "year": "1995",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "胡迪与巴斯光年的友情，首部全CG动画长片。"
+                    },
+                    {
+                              "title": "虫虫危机",
+                              "year": "1998",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "蚂蚁菲力的昆虫世界冒险。"
+                    },
+                    {
+                              "title": "玩具总动员2",
+                              "year": "1999",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "胡迪被收藏，巴斯光年前去救援。"
+                    },
+                    {
+                              "title": "怪兽电力公司",
+                              "year": "2001",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "毛怪与阿布，\"尖叫变笑声\"的创意世界。"
+                    },
+                    {
+                              "title": "海底总动员",
+                              "year": "2003",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "马林穿越大海寻找尼莫的父爱之旅。"
+                    },
+                    {
+                              "title": "超人总动员",
+                              "year": "2004",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "超能一家人的家庭与英雄生活。"
+                    },
+                    {
+                              "title": "汽车总动员",
+                              "year": "2006",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "闪电麦坤在温泉镇的成长。"
+                    },
+                    {
+                              "title": "料理鼠王",
+                              "year": "2007",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "小米追求厨师梦想的巴黎故事。"
+                    },
+                    {
+                              "title": "机器人总动员(WALL·E)",
+                              "year": "2008",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "瓦力与伊娃的太空爱情，前40分钟默片堪称艺术。"
+                    },
+                    {
+                              "title": "飞屋环游记",
+                              "year": "2009",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "卡尔与罗素的南美冒险，前10分钟催泪。"
+                    },
+                    {
+                              "title": "玩具总动员3",
+                              "year": "2010",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "安迪长大，玩具们的最终告别。"
+                    },
+                    {
+                              "title": "蚁哥正传",
+                              "year": "1998",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "蚂蚁Z的逆袭与爱情。"
+                    },
+                    {
+                              "title": "埃及王子",
+                              "year": "1998",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "梦工厂开山之作，摩西带领希伯来人出埃及。"
+                    },
+                    {
+                              "title": "怪物史莱克",
+                              "year": "2001",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "史莱克与菲奥娜的反童话爱情。"
+                    },
+                    {
+                              "title": "怪物史莱克2",
+                              "year": "2004",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "史莱克见岳父的搞笑旅程。"
+                    },
+                    {
+                              "title": "马达加斯加",
+                              "year": "2005",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "纽约动物园动物的非洲冒险。"
+                    },
+                    {
+                              "title": "功夫熊猫",
+                              "year": "2008",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "阿宝成为神龙大侠的武侠梦。"
+                    },
+                    {
+                              "title": "驯龙高手",
+                              "year": "2010",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "小嗝嗝与没牙仔的龙骑士成长。"
+                    },
+                    {
+                              "title": "小鸡快跑",
+                              "year": "2000",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "母鸡们逃离养鸡场的粘土动画。"
+                    },
+                    {
+                              "title": "鲨鱼黑帮",
+                              "year": "2004",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "海底黑帮的搞笑故事。"
+                    },
+                    {
+                              "title": "篱笆墙外",
+                              "year": "2006",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "小动物们跨越篱笆寻找食物的冒险。"
+                    },
+                    {
+                              "title": "蜜蜂总动员",
+                              "year": "2007",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "蜜蜂巴瑞起诉人类偷蜂蜜的搞笑故事。"
+                    },
+                    {
+                              "title": "超级大坏蛋",
+                              "year": "2010",
+                              "rating": 5,
+                              "category": "us",
+                              "desc": "反派麦格迈变身为英雄的搞笑故事。"
+                    }
+          ]
+};
 
         // ===== 状态管理 =====
         let currentFilter = 'all';
+        let currentSort = 'default';
+        let searchQuery = '';
         const savedData = JSON.parse(localStorage.getItem('animeTracker') || '{}');
+
+        // 获取所有动漫数据
+        function getAllAnime() {
+            return [...animeData.japan, ...animeData.china, ...animeData.us];
+        }
 
         // ===== 初始化 =====
         function init() {
@@ -1473,7 +4533,52 @@
             const container = document.getElementById('animeContainer');
             container.innerHTML = '';
 
-            const allAnime = [...animeData.japan, ...animeData.china, ...animeData.us];
+            let allAnime = getAllAnime();
+            
+            // 应用搜索过滤
+            if (searchQuery) {
+                allAnime = allAnime.filter(a => 
+                    a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    a.desc.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+            }
+            
+            // 应用类别过滤
+            if (currentFilter !== 'all') {
+                if (currentFilter === 'watched') {
+                    allAnime = allAnime.filter(a => savedData[a.title]?.watched);
+                } else if (currentFilter === 'favorite') {
+                    allAnime = allAnime.filter(a => savedData[a.title]?.favorite);
+                } else if (currentFilter === 'unwatched') {
+                    allAnime = allAnime.filter(a => !savedData[a.title]?.watched);
+                } else {
+                    allAnime = allAnime.filter(a => a.category === currentFilter);
+                }
+            }
+            
+            // 应用排序
+            if (currentSort === 'name') {
+                allAnime.sort((a, b) => a.title.localeCompare(b.title, 'zh-CN'));
+            } else if (currentSort === 'year') {
+                allAnime.sort((a, b) => {
+                    const yearA = parseInt(a.year.split('-')[0]);
+                    const yearB = parseInt(b.year.split('-')[0]);
+                    return yearA - yearB;
+                });
+            } else if (currentSort === 'rating') {
+                allAnime.sort((a, b) => b.rating - a.rating);
+            }
+
+            // 检查是否有结果
+            if (allAnime.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎬</div>
+                        <div class="empty-state-text">没有找到符合条件的动漫</div>
+                    </div>
+                `;
+                return;
+            }
             
             const grouped = {
                 '日本动画': allAnime.filter(a => a.category === 'jp'),
@@ -1482,37 +4587,44 @@
             };
 
             for (const [category, items] of Object.entries(grouped)) {
-                const filteredItems = filterItems(items);
-                if (filteredItems.length === 0) continue;
+                if (items.length === 0) continue;
 
                 const section = document.createElement('div');
                 section.className = 'anime-section';
                 section.innerHTML = `
                     <div class="section-title">
                         ${category}
-                        <span class="section-count">${filteredItems.length}</span>
+                        <span class="section-count">${items.length}</span>
                     </div>
                     <div class="anime-list">
-                        ${filteredItems.map(anime => createAnimeItem(anime)).join('')}
+                        ${items.map(anime => createAnimeItem(anime)).join('')}
                     </div>
                 `;
                 container.appendChild(section);
             }
         }
 
-        // ===== 筛选项目 =====
-        function filterItems(items) {
-            if (currentFilter === 'all') return items;
-            if (currentFilter === 'watched') {
-                return items.filter(a => savedData[a.title]?.watched);
-            }
-            if (currentFilter === 'favorite') {
-                return items.filter(a => savedData[a.title]?.favorite);
-            }
-            if (currentFilter === 'unwatched') {
-                return items.filter(a => !savedData[a.title]?.watched);
-            }
-            return items.filter(a => a.category === currentFilter);
+        // ===== 搜索功能 =====
+        function handleSearch(query) {
+            searchQuery = query.trim();
+            document.getElementById('searchClear').style.display = searchQuery ? 'block' : 'none';
+            renderAnimeList();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            handleSearch('');
+        }
+
+        // ===== 排序功能 =====
+        function setSort(sortType, btn) {
+            currentSort = sortType;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            
+            renderAnimeList();
         }
 
         // ===== 创建动画项 =====
@@ -1577,7 +4689,7 @@
 
         // ===== 更新统计 =====
         function updateStats() {
-            const allAnime = [...animeData.japan, ...animeData.china, ...animeData.us];
+            const allAnime = getAllAnime();
             const total = allAnime.length;
             let watched = 0, favorite = 0;
 
@@ -1610,14 +4722,14 @@
         }
 
         // ===== 筛选类别 =====
-        function filterCategory(category) {
+        function filterCategory(category, btn) {
             currentFilter = category;
             
             // 更新按钮状态
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('active');
             });
-            event.target.classList.add('active');
+            if (btn) btn.classList.add('active');
             
             renderAnimeList();
         }
@@ -1634,6 +4746,45 @@
                     btn.classList.add('active');
                 }
             });
+        }
+
+        // ===== 随机推荐 =====
+        function randomPick() {
+            const allAnime = getAllAnime();
+            const randomAnime = allAnime[Math.floor(Math.random() * allAnime.length)];
+            
+            // 创建或更新弹窗
+            let modal = document.getElementById('randomModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'randomModal';
+                modal.className = 'modal-overlay';
+                modal.onclick = (e) => {
+                    if (e.target === modal) closeModal();
+                };
+                document.body.appendChild(modal);
+            }
+            
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-title">🎲 今日推荐</div>
+                    <div class="modal-anime-title">${randomAnime.title}</div>
+                    <div class="modal-anime-year">📅 ${randomAnime.year} | ${'⭐'.repeat(randomAnime.rating)}</div>
+                    <div class="modal-anime-desc">${randomAnime.desc}</div>
+                    <button class="modal-close" onclick="closeModal()">知道了</button>
+                </div>
+            `;
+            
+            // 显示弹窗
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('randomModal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.remove(), 300);
+            }
         }
 
         // ===== 加载保存的主题 =====
