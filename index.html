@@ -1257,6 +1257,8 @@
             padding: 10px 25px;
             font-size: 14px;
             font-weight: bold;
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
         }
 
         /* 筛选标签 */
@@ -4707,18 +4709,27 @@
             document.getElementById('progressText').textContent = 
                 `已观看 ${watched} / ${total} (${percent}%)`;
 
-            // 成就系统
+            // 成就系统 - 12级等级划分
             const achievementSection = document.getElementById('achievementSection');
             const achievementBadge = document.getElementById('achievementBadge');
             
-            let badge = '动画新手';
-            if (watched >= 5) badge = '动画爱好者';
-            if (watched >= 10) badge = '资深宅';
-            if (watched >= 15) badge = '动画大师';
-            if (watched >= total) badge = '补完狂魔';
+            let badge = '🌱 动画萌新';
+            let badgeColor = '#98fb98';
+            if (watched >= 10) { badge = '🌿 进阶观众'; badgeColor = '#90ee90'; }
+            else if (watched >= 20) { badge = '🍀 动画爱好者'; badgeColor = '#7cfc00'; }
+            else if (watched >= 30) { badge = '🌳 资深观众'; badgeColor = '#cd7f32'; }
+            else if (watched >= 50) { badge = '🏆 大师级'; badgeColor = '#c0c0c0'; }
+            else if (watched >= 70) { badge = '💎 钻石级'; badgeColor = '#b9f2ff'; }
+            else if (watched >= 100) { badge = '👑 动画之神'; badgeColor = '#ffd700'; }
+            else if (watched >= 130) { badge = '🌟 传说级'; badgeColor = '#ff69b4'; }
+            else if (watched >= 160) { badge = '🎖️ 史诗级'; badgeColor = '#da70d6'; }
+            else if (watched >= 200) { badge = '🔱 神话级'; badgeColor = '#ff4500'; }
+            else if (watched >= 250) { badge = '⚡ 超神级'; badgeColor = '#00ffff'; }
+            else if (watched >= total) { badge = '👽 补完狂魔'; badgeColor = '#9400d3'; }
             
             achievementBadge.textContent = badge;
-            achievementSection.style.display = watched > 0 ? 'block' : 'none';
+            achievementBadge.style.background = badgeColor;
+            achievementSection.style.display = 'block';
         }
 
         // ===== 筛选类别 =====
