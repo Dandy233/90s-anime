@@ -1893,10 +1893,6 @@
                 <div class="stat-number" id="watchedCount">0</div>
                 <div class="stat-label">已看过</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number" id="favoriteCount">0</div>
-                <div class="stat-label">已收藏</div>
-            </div>
         </div>
 
         <!-- 进度条 -->
@@ -1946,7 +1942,6 @@
                 <button class="filter-btn" onclick="filterCategory('cn', this)">国产动画</button>
                 <button class="filter-btn" onclick="filterCategory('us', this)">欧美动画</button>
                 <button class="filter-btn" onclick="filterCategory('watched', this)">已看过</button>
-                <button class="filter-btn" onclick="filterCategory('favorite', this)">已收藏</button>
                 <button class="filter-btn" onclick="filterCategory('unwatched', this)">未看</button>
             </div>
         </div>
@@ -4549,8 +4544,6 @@
             if (currentFilter !== 'all') {
                 if (currentFilter === 'watched') {
                     allAnime = allAnime.filter(a => savedData[a.title]?.watched);
-                } else if (currentFilter === 'favorite') {
-                    allAnime = allAnime.filter(a => savedData[a.title]?.favorite);
                 } else if (currentFilter === 'unwatched') {
                     allAnime = allAnime.filter(a => !savedData[a.title]?.watched);
                 } else {
@@ -4653,19 +4646,11 @@
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-label">看过</span>
                             </label>
-                            <label class="checkbox-wrapper" title="收藏">
-                                <input type="checkbox" 
-                                       ${data.favorite ? 'checked' : ''} 
-                                       onchange="toggleFavorite('${anime.title}')">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">收藏</span>
-                            </label>
                         </div>
                     </div>
                     <div class="anime-desc">${anime.desc}</div>
                     <div class="anime-tags">
                         ${data.watched ? '<span class="tag watched">✓ 已看</span>' : ''}
-                        ${data.favorite ? '<span class="tag favorite">♥ 收藏</span>' : ''}
                     </div>
                 </div>
             `;
@@ -4680,29 +4665,18 @@
             updateStats();
         }
 
-        // ===== 切换收藏状态 =====
-        function toggleFavorite(title) {
-            if (!savedData[title]) savedData[title] = {};
-            savedData[title].favorite = !savedData[title].favorite;
-            localStorage.setItem('animeTracker', JSON.stringify(savedData));
-            renderAnimeList();
-            updateStats();
-        }
-
         // ===== 更新统计 =====
         function updateStats() {
             const allAnime = getAllAnime();
             const total = allAnime.length;
-            let watched = 0, favorite = 0;
+            let watched = 0;
 
             for (const anime of allAnime) {
                 if (savedData[anime.title]?.watched) watched++;
-                if (savedData[anime.title]?.favorite) favorite++;
             }
 
             document.getElementById('totalCount').textContent = total;
             document.getElementById('watchedCount').textContent = watched;
-            document.getElementById('favoriteCount').textContent = favorite;
 
             const percent = total > 0 ? Math.round((watched / total) * 100) : 0;
             document.getElementById('progressFill').style.width = percent + '%';
