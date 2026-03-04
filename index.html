@@ -1363,17 +1363,21 @@
 
         .wiki-link {
             font-size: 12px;
-            color: var(--primary, #667eea);
+            color: var(--text, #333);
             text-decoration: none;
             padding: 4px 10px;
-            border-radius: 12px;
-            border: 1px solid var(--primary, #667eea);
+            border-radius: 4px;
+            background: rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.1);
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
         }
 
         .wiki-link:hover {
             background: var(--primary, #667eea);
             color: white;
+            border-color: var(--primary, #667eea);
         }
 
         .checkbox-wrapper {
@@ -4665,7 +4669,7 @@
                             <a href="https://baike.baidu.com/item/${encodeURIComponent(anime.title)}" 
                                target="_blank" 
                                class="wiki-link">
-                                📖 百科
+                                百科
                             </a>
                         </div>
                     </div>
