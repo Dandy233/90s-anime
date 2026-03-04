@@ -1514,7 +1514,359 @@
             color: white;
         }
 
-        /* 已选筛选条件显示 */
+        /* ========== 新版动漫卡片样式 ========== */
+        .anime-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            padding: 10px;
+        }
+
+        .anime-item {
+            background: var(--card, #fff);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .anime-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .anime-cover-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 140%; /* 5:7 宽高比 */
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .anime-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .anime-item:hover .anime-cover {
+            transform: scale(1.05);
+        }
+
+        .anime-cover.default-cover {
+            object-fit: contain;
+            padding: 20%;
+            opacity: 0.8;
+        }
+
+        .anime-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .anime-item:hover .anime-overlay {
+            opacity: 1;
+        }
+
+        .view-detail {
+            color: white;
+            font-size: 12px;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .anime-info {
+            padding: 12px;
+        }
+
+        .anime-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--text, #333);
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .anime-year {
+            font-size: 11px;
+            color: var(--muted, #666);
+            margin-bottom: 8px;
+        }
+
+        .anime-actions-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .checkbox-wrapper-mini {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            color: var(--text, #333);
+        }
+
+        .checkbox-wrapper-mini input {
+            display: none;
+        }
+
+        .checkbox-custom-mini {
+            width: 14px;
+            height: 14px;
+            border: 2px solid var(--border, #ddd);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .checkbox-wrapper-mini input:checked + .checkbox-custom-mini {
+            background: var(--primary, #667eea);
+            border-color: var(--primary, #667eea);
+        }
+
+        .checkbox-custom-mini::after {
+            content: '✓';
+            color: white;
+            font-size: 10px;
+            opacity: 0;
+        }
+
+        .checkbox-wrapper-mini input:checked + .checkbox-custom-mini::after {
+            opacity: 1;
+        }
+
+        .wiki-link-mini {
+            font-size: 11px;
+            color: var(--primary, #667eea);
+            text-decoration: none;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .wiki-link-mini:hover {
+            background: var(--primary, #667eea);
+            color: white;
+        }
+
+        .anime-tags-mini {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .tag-mini {
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        /* ========== 详情弹窗样式 ========== */
+        .anime-detail-modal .modal-content {
+            max-width: 700px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(0,0,0,0.8);
+            transform: rotate(90deg);
+        }
+
+        .anime-detail-header {
+            display: flex;
+            gap: 20px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        }
+
+        .anime-detail-cover {
+            flex-shrink: 0;
+            width: 180px;
+            height: 250px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .anime-detail-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .anime-detail-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .anime-detail-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--text, #333);
+        }
+
+        .anime-detail-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .meta-item {
+            font-size: 13px;
+            padding: 6px 12px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 20px;
+            color: var(--text, #333);
+        }
+
+        .anime-detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .anime-detail-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .detail-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--primary, #667eea);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .detail-checkbox:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .detail-wiki {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary, #667eea);
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .detail-wiki:hover {
+            background: var(--primary, #667eea);
+            color: white;
+        }
+
+        .anime-detail-body {
+            padding: 30px;
+        }
+
+        .detail-section {
+            margin-bottom: 25px;
+        }
+
+        .detail-section h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: var(--text, #333);
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary, #667eea);
+            display: inline-block;
+        }
+
+        .detail-desc {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text, #333);
+            text-align: justify;
+        }
+
+        .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .detail-tag {
+            padding: 6px 14px;
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary, #667eea);
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .anime-detail-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .anime-detail-cover {
+                width: 150px;
+                height: 210px;
+            }
+
+            .anime-list {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            }
+        }
         .active-filters {
             display: flex;
             flex-wrap: wrap;
@@ -2170,7 +2522,7 @@
             <!-- 第三层：高级筛选（可折叠） -->
             <div class="filter-section advanced-filter">
                 <div class="filter-title advanced-toggle" onclick="toggleAdvancedFilter()">
-                    🔖 高级筛选 
+                    🔖 高级筛选
                     <span id="advancedToggleIcon">▼</span>
                 </div>
                 <div class="advanced-content" id="advancedContent" style="display: none;">
@@ -2188,7 +2540,7 @@
                             <button class="filter-tag" onclick="filterByTag('吉卜力', this)">吉卜力</button>
                         </div>
                     </div>
-                    
+
                     <!-- 年代筛选 -->
                     <div class="filter-group">
                         <div class="filter-group-title">📅 年代</div>
@@ -2200,7 +2552,7 @@
                             <button class="filter-tag" onclick="filterByTag('01-05', this)">01-05</button>
                         </div>
                     </div>
-                    
+
                     <!-- 制作公司 -->
                     <div class="filter-group">
                         <div class="filter-group-title">🏢 制作公司</div>
@@ -2211,7 +2563,7 @@
                             <button class="filter-tag" onclick="filterByTag('京都动画', this)">京阿尼</button>
                         </div>
                     </div>
-                    
+
                     <!-- 观看状态 -->
                     <div class="filter-group">
                         <div class="filter-group-title">👁️ 观看状态</div>
@@ -7107,37 +7459,44 @@
         // ===== 创建动画项 =====
         function createAnimeItem(anime) {
             const data = savedData[anime.title] || {};
-
+            const imageName = anime.title.replace(/[^\w\u4e00-\u9fa5]/g, '_');
+            const imagePath = `images/${imageName}.jpg`;
+            
             return `
-                <div class="anime-item" data-title="${anime.title}">
-                    <div class="anime-header">
-                        <div class="anime-title-section">
-                            <span
-                               class="anime-title">${anime.title}</span>
-                            <div class="anime-meta">
-                                <span class="anime-year">${anime.year}</span>
-                            </div>
+                <div class="anime-item" data-title="${anime.title}" onclick="showAnimeDetail('${anime.title}')">
+                    <div class="anime-cover-wrapper">
+                        <img class="anime-cover" 
+                             src="${imagePath}" 
+                             alt="${anime.title}"
+                             onerror="this.src='images/default.svg';this.classList.add('default-cover')"
+                             loading="lazy">
+                        <div class="anime-overlay">
+                            <span class="view-detail">👆 点击查看详情</span>
                         </div>
-                        <div class="anime-actions">
-                            <label class="checkbox-wrapper" title="标记为已看过">
-                                <input type="checkbox"
-                                       ${data.watched ? 'checked' : ''}
+                    </div>
+                    <div class="anime-info">
+                        <div class="anime-title" title="${anime.title}">${anime.title}</div>
+                        <div class="anime-year">📅 ${anime.year}</div>
+                        <div class="anime-actions-row">
+                            <label class="checkbox-wrapper-mini" title="标记为已看过" onclick="event.stopPropagation()">
+                                <input type="checkbox" 
+                                       ${data.watched ? 'checked' : ''} 
                                        onchange="toggleWatched('${anime.title}')">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">看过</span>
+                                <span class="checkbox-custom-mini"></span>
+                                <span class="checkbox-label-mini">${data.watched ? '已看' : '看过'}</span>
                             </label>
-                            <a href="https://baike.baidu.com/item/${encodeURIComponent(anime.title)}"
-                               target="_blank"
-                               class="wiki-link">
+                            <a href="https://baike.baidu.com/item/${encodeURIComponent(anime.title)}" 
+                               target="_blank" 
+                               class="wiki-link-mini"
+                               onclick="event.stopPropagation()">
                                 百科
                             </a>
                         </div>
-                    </div>
-                    <div class="anime-desc">${anime.desc}</div>
-                    <div class="anime-tags">
-                        ${data.watched ? '<span class="tag watched">✓ 已看</span>' : ''}
-                        ${anime.miyazaki ? '<span class="tag miyazaki">🎬 宫崎骏</span>' : ''}
-                        ${anime.ghibli ? '<span class="tag ghibli">🏠 吉卜力</span>' : ''}
+                        <div class="anime-tags-mini">
+                            ${anime.miyazaki ? '<span class="tag-mini miyazaki">🎬 宫崎骏</span>' : ''}
+                            ${anime.ghibli ? '<span class="tag-mini ghibli">🏠 吉卜力</span>' : ''}
+                            ${data.watched ? '<span class="tag-mini watched">✓</span>' : ''}
+                        </div>
                     </div>
                 </div>
             `;
@@ -7151,6 +7510,139 @@
             renderAnimeList();
             updateStats();
         }
+
+        // ===== 显示动漫详情弹窗 =====
+        function showAnimeDetail(title) {
+            const allAnime = getAllAnime();
+            const anime = allAnime.find(a => a.title === title);
+            if (!anime) return;
+
+            const data = savedData[title] || {};
+            const imageName = title.replace(/[^\w\u4e00-\u9fa5]/g, '_');
+            const imagePath = `images/${imageName}.jpg`;
+
+            // 生成详细描述
+            const detailDesc = generateDetailDesc(anime);
+
+            // 创建弹窗
+            let modal = document.getElementById('animeDetailModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'animeDetailModal';
+                modal.className = 'modal-overlay anime-detail-modal';
+                modal.onclick = (e) => {
+                    if (e.target === modal) closeAnimeDetail();
+                };
+                document.body.appendChild(modal);
+            }
+
+            modal.innerHTML = `
+                <div class="modal-content anime-detail-content">
+                    <button class="modal-close-btn" onclick="closeAnimeDetail()">✕</button>
+                    <div class="anime-detail-header">
+                        <div class="anime-detail-cover">
+                            <img src="${imagePath}" 
+                                 alt="${title}"
+                                 onerror="this.src='images/default.svg'">
+                        </div>
+                        <div class="anime-detail-info">
+                            <h2 class="anime-detail-title">${title}</h2>
+                            <div class="anime-detail-meta">
+                                <span class="meta-item">📅 ${anime.year}</span>
+                                <span class="meta-item">📺 ${getCategoryName(anime.category)}</span>
+                                ${anime.subCategory ? `<span class="meta-item">🏷️ ${anime.subCategory}</span>` : ''}
+                            </div>
+                            <div class="anime-detail-tags">
+                                ${anime.miyazaki ? '<span class="tag miyazaki">🎬 宫崎骏作品</span>' : ''}
+                                ${anime.ghibli ? '<span class="tag ghibli">🏠 吉卜力工作室</span>' : ''}
+                                ${anime.tags ? anime.tags.slice(0, 5).map(t => `<span class="tag">${t}</span>`).join('') : ''}
+                            </div>
+                            <div class="anime-detail-actions">
+                                <label class="checkbox-wrapper detail-checkbox">
+                                    <input type="checkbox" ${data.watched ? 'checked' : ''} 
+                                           onchange="toggleWatched('${title}'); updateDetailWatched(this)">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-label">${data.watched ? '☑ 已看过' : '☐ 标记为已看'}</span>
+                                </label>
+                                <a href="https://baike.baidu.com/item/${encodeURIComponent(title)}" 
+                                   target="_blank" class="wiki-link detail-wiki">📖 查看百科</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="anime-detail-body">
+                        <div class="detail-section">
+                            <h3>📖 作品简介</h3>
+                            <p class="detail-desc">${anime.desc}</p>
+                        </div>
+                        <div class="detail-section">
+                            <h3>📝 详细介绍</h3>
+                            <p class="detail-desc">${detailDesc}</p>
+                        </div>
+                        ${anime.tags && anime.tags.length > 0 ? `
+                        <div class="detail-section">
+                            <h3>🏷️ 相关标签</h3>
+                            <div class="detail-tags">
+                                ${anime.tags.map(t => `<span class="detail-tag">${t}</span>`).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // ===== 关闭详情弹窗 =====
+        function closeAnimeDetail() {
+            const modal = document.getElementById('animeDetailModal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            }
+            document.body.style.overflow = '';
+        }
+
+        // ===== 更新详情弹窗的已看状态 =====
+        function updateDetailWatched(checkbox) {
+            const label = checkbox.parentElement.querySelector('.checkbox-label');
+            label.textContent = checkbox.checked ? '☑ 已看过' : '☐ 标记为已看';
+        }
+
+        // ===== 生成详细描述 =====
+        function generateDetailDesc(anime) {
+            const templates = [
+                `${anime.title}是${anime.year}年推出的经典作品，属于${getCategoryName(anime.category)}中的${anime.subCategory || '经典'}类型。`,
+                `这部作品在${anime.year}首播，深受90后观众喜爱，是${getCategoryName(anime.category)}的代表作之一。`,
+                `作为${anime.subCategory || '经典'}类型的优秀作品，${anime.title}在${anime.year}年给观众留下了深刻印象。`
+            ];
+            
+            const randomTemplate = templates[Math.floor(Math.random() * templates.length)];
+            
+            let extraInfo = '';
+            if (anime.miyazaki) extraInfo = ' 这是宫崎骏导演的杰作，充满想象力和人文关怀。';
+            else if (anime.ghibli) extraInfo = ' 出自吉卜力工作室，延续了工作室一贯的精美画风。';
+            else if (anime.title.includes('高达')) extraInfo = ' 高达系列的经典之作，机甲迷必看。';
+            else if (anime.title.includes('龙珠')) extraInfo = ' 鸟山明原作，战斗场面令人热血沸腾。';
+            
+            return randomTemplate + extraInfo + ' 点击百科链接可以查看更多详细信息。';
+        }
+
+        // ===== 获取分类名称 =====
+        function getCategoryName(cat) {
+            const names = { 'jp': '日本动画', 'cn': '国产动画', 'us': '欧美动画' };
+            return names[cat] || cat;
+        }
+
+        // ===== 键盘事件 - ESC关闭弹窗 =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAnimeDetail();
+            }
+        });
 
         // ===== 更新统计 =====
         function updateStats() {
@@ -7216,7 +7708,7 @@
         function toggleAdvancedFilter() {
             const content = document.getElementById('advancedContent');
             const icon = document.getElementById('advancedToggleIcon');
-            
+
             if (content.style.display === 'none') {
                 content.style.display = 'block';
                 icon.textContent = '▲';
@@ -7236,7 +7728,7 @@
                 currentTags.push(tag);
                 if (btn) btn.classList.add('active');
             }
-            
+
             // 更新其他筛选状态
             if (tag === '宫崎骏') {
                 currentMiyazaki = currentTags.includes('宫崎骏');
@@ -7244,7 +7736,7 @@
             if (tag === '吉卜力') {
                 currentGhibli = currentTags.includes('吉卜力');
             }
-            
+
             renderAnimeList();
             updateActiveFilters();
         }
@@ -7253,20 +7745,20 @@
         function updateActiveFilters() {
             const container = document.getElementById('activeFilters');
             if (!container) return;
-            
+
             let html = '';
-            
+
             // 大分类
             if (currentFilter !== 'all') {
                 const labels = { 'jp': '日本', 'cn': '国产', 'us': '欧美', 'watched': '已看', 'unwatched': '未看' };
                 html += `<span class="active-filter">${labels[currentFilter] || currentFilter}<span class="remove" onclick="clearFilter('category')">×</span></span>`;
             }
-            
+
             // 标签
             currentTags.forEach(tag => {
                 html += `<span class="active-filter">${tag}<span class="remove" onclick="removeTag('${tag}')">×</span></span>`;
             });
-            
+
             container.innerHTML = html;
         }
 
@@ -7298,10 +7790,10 @@
             currentSubCategory = null;
             currentMiyazaki = false;
             currentGhibli = false;
-            
+
             document.querySelectorAll('.filter-btn, .filter-tag').forEach(b => b.classList.remove('active'));
             document.querySelector('.filter-btn').classList.add('active');
-            
+
             renderAnimeList();
             updateActiveFilters();
         }
