@@ -5387,7 +5387,6 @@
         // ===== 创建动画项 =====
         function createAnimeItem(anime) {
             const data = savedData[anime.title] || {};
-            const stars = '⭐'.repeat(anime.rating);
             
             return `
                 <div class="anime-item" data-title="${anime.title}">
@@ -5397,7 +5396,6 @@
                                class="anime-title">${anime.title}</span>
                             <div class="anime-meta">
                                 <span class="anime-year">${anime.year}</span>
-                                <span class="rating">${stars}</span>
                             </div>
                         </div>
                         <div class="anime-actions">
@@ -5577,7 +5575,7 @@
                 <div class="modal-content">
                     <div class="modal-title">🎲 今日推荐</div>
                     <div class="modal-anime-title">${randomAnime.title}</div>
-                    <div class="modal-anime-year">📅 ${randomAnime.year} | ${'⭐'.repeat(randomAnime.rating)}</div>
+                    <div class="modal-anime-year">📅 ${randomAnime.year}</div>
                     <div class="modal-anime-desc">${randomAnime.desc}</div>
                     <button class="modal-close" onclick="closeModal()">知道了</button>
                 </div>
