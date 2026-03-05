@@ -1,0 +1,28 @@
+#!/bin/bash
+# 90s-anime 图片下载助手
+# 使用方法: ./download_images.sh
+
+echo "🎨 90s-anime 图片下载助手"
+echo "=========================="
+echo ""
+echo "当前仓库包含 116 部动漫作品"
+echo ""
+echo "由于图片源的限制，目前 README 中使用的图片链接是占位符。"
+echo ""
+echo "你可以通过以下方式为作品添加真实图片："
+echo ""
+echo "方法一：手动下载"
+echo "  1. 访问百度百科、豆瓣或维基百科"
+echo "  2. 搜索动漫名称"
+echo "  3. 下载海报图片"
+echo "  4. 保存到 images/ 目录，命名为: '动漫名称.jpg'"
+echo ""
+echo "方法二：使用占位图片服务"
+echo "  修改 README.md，将图片链接改为:"
+echo "  https://via.placeholder.com/100x150?text=动漫名称"
+echo ""
+echo "方法三：使用 shields.io 徽章"
+echo "  https://img.shields.io/badge/动漫名称-海报-blue"
+echo ""
+echo "已下载的图片列表:"
+ls -1 images/ 2>/dev/null || echo "  (暂无图片)"
